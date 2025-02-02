@@ -11,28 +11,28 @@
     <header>
       <div class="logo-container">
         <img src="./svgs/cloudLogo.svg" alt="" class="icone-logo">
-        <img src="./svgs/MinhaLogo.svg" class="logo">
+        <img src="./svgs/this.svg" class="logo">
         <h1>Weather forecast</h1>
       </div>
       <search>
         <form action="">
           <label for="search-bar" class="visually-hidden"> Search: </label>
           <input type="text" id="search-bar" placeholder="Search a city">
-          <button type="button" class="search-button">
+          <button type="button" class="search-button" id="search-button">
             <img src="./svgs/search.svg" alt="Click and search" class="search-icon">
           </button>
         </form>
       </search>
     </header>
     <div class="time-span">
-      <button type="button">Today</button>
-      <button type="button">Tomorrow</button>
-      <button type="button">Daily</button>
-      <button type="button">Hourly</button>
+      <button type="button" id="today">Today</button>
+      <button type="button" id="tomorrow">Tomorrow</button>
+      <button type="button" id="daily">Daily</button>
+      <button type="button" id="hourly">Hourly</button>
     </div>
     <section class="weather-info">
       <article class="main">
-        <h2 id="temp">Temperature</h2>
+        <h2>Temperature:</h2>
         <span id="city">São Paulo, SP, Brasil </span>
         <div>
           <figure>
@@ -53,10 +53,10 @@
         <h3 id="uv">UV index now:<h2>
         <span id="uv-next">In 1 hour:</span>
         <span id="uv-next2">In 2 hours</span>
-        <button type="button">See all</button>
+        <button type="button" id="see-all-uv">See all</button>
       </article>
       <article class="other">
-        <h3>Other data</h3>
+        <h3>Other data: </h3>
         <span id="feels-like">Feels like:</span>
         <span id="humidity">Humidity:</span>
         <span id="visibility">Visibility:</span>
