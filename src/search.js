@@ -21,7 +21,7 @@ async function search(location) {
   const uv = weather.currentConditions.uvindex;
   const sunrise = weather.currentConditions.sunrise;
   const sunset = weather.currentConditions.sunset;
-  const needed = {
+  const today = {
     place,
     description,
     current,
@@ -39,11 +39,11 @@ async function search(location) {
   };
   return {
     weather,
-    needed,
+    today,
   };
 }
 
-//(async function needed() {
-  //const json = await search("Springfield");
-  //console.log(json.needed);
-//})();
+(async function today() {
+  const json = await search("São Paulo");
+  console.log(json.today);
+})();

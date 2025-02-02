@@ -31,12 +31,40 @@
       <button type="button">Hourly</button>
     </div>
     <section class="weather-info">
-      <article>
-        <span id="city">São Paulo, SP, Brasil</span>
-        <figure>
-          <img src="#" alt="" id="weather-state">
-        </figure>
+      <article class="main">
+        <h2 id="temp">Temperature</h2>
+        <span id="city">São Paulo, SP, Brasil </span>
+        <div>
+          <figure>
+            <img src="#" alt="" id="weather-icon">
+          </figure>
+          <span id="temp"></span>
+        </div>
+        <span id="weather-state"></span>
       </article>
+      <article class="precipitation">
+        <figure>
+          <img src="#" alt="" id="weather-icon2">
+        </figure>
+        <h3 id="precipitation">Precipitation: </h2>
+        <span id="precipitation-prob">Precipitation</span>
+      </article>
+      <article class="uv">
+        <h3 id="uv">UV index now:<h2>
+        <span id="uv-next">In 1 hour:</span>
+        <span id="uv-next2">In 2 hours</span>
+        <button type="button">See all</button>
+      </article>
+      <article class="other">
+        <h3>Other data</h3>
+        <span id="feels-like">Feels like:</span>
+        <span id="humidity">Humidity:</span>
+        <span id="visibility">Visibility:</span>
+        <span id="wind-speed">Wind speed:</span>
+        <span id="sunrise">Sunrise: </span>
+        <span id="sunset">Sunset: </span>
+      </article>
+
     </section>
   </div>
 </body>
