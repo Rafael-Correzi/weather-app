@@ -68,17 +68,18 @@ html {
   text-align: center;
 }
 
-.icone-logo, .logo {
-  height: 38px;
-}
-
 .icone-logo {
+  height: 38px;
   width: 60px;
 }
 
 .logo {
-  width: 100px;
+  font-family: 'antoniobold';
+  font-size: 4rem;
+  color: white;
 }
+
+
 
 h1 {
   font-size: 1.4rem;
