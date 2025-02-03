@@ -1,4 +1,14 @@
 import * as grabDOM from "./domElements.js";
+import clearNight from "./svgs/clear-night.svg";
+import cloudy from "./svgs/cloudy.svg";
+import foggy from "./svgs/foggy.svg";
+import partlyCloudyDay from "./svgs/partly-cloudy-day.svg";
+import partlyCloudyNight from "./svgs/partly-cloudy-night.svg";
+import snow from "./svgs/rain-snow.svg";
+import rain from "./svgs/rain.svg";
+import clearDay from "./svgs/sun.svg";
+import windy from "./svgs/windy.svg";
+
 
 async function search(location) {
   const response = await fetch(
@@ -23,6 +33,7 @@ async function search(location) {
   const uv = weather.currentConditions.uvindex;
   const sunrise = weather.currentConditions.sunrise;
   const sunset = weather.currentConditions.sunset;
+  const icon = weather.currentConditions.icon;
   const today = {
     place,
     description,
@@ -38,6 +49,7 @@ async function search(location) {
     uv,
     sunrise,
     sunset,
+    icon,
   };
   return {
     weather,
@@ -48,6 +60,7 @@ async function search(location) {
 (async function saoPaulo() {
   const json = await search("São Paulo");
   console.log(json.today);
+  console.log(json.weather);
   addToDOM(
     json.today.temp,
     json.today.precipitation,
@@ -60,6 +73,11 @@ async function search(location) {
     json.today.sunrise,
     json.today.sunset,
   );
+
+  json.weather.days[0].hours.forEach((e) => {
+    addGraph(e.uvindex);
+  });
+  changeIcon(json.today.icon);
 })();
 
 function addToDOM(
@@ -75,9 +93,10 @@ function addToDOM(
   visibilityPassed,
   windspeedPassed,
   sunrisePassed,
-  sunsetPassed,
+  sunsetPassed
 ) {
   grabDOM.temp.textContent += tempPassed;
+  grabDOM.temp.textContent += "° C"
   grabDOM.precipitation.textContent += precipitationPassed;
   grabDOM.prob.textContent += probPassed;
   grabDOM.uv.textContent += uvPassed;
@@ -90,4 +109,43 @@ function addToDOM(
   grabDOM.windspeed.textContent += windspeedPassed;
   grabDOM.sunrise.textContent += sunrisePassed;
   grabDOM.sunset.textContent += sunsetPassed;
+}
+
+function changeIcon(weather) {
+  const icons = {
+    "snow": snow,
+    "rain": rain,
+    "fog": foggy,
+    "wind": windy,
+    "cloudy": cloudy,
+    "partly-cloudy-day": partlyCloudyDay,
+    "partly-cloudy-night": partlyCloudyNight,
+    "clear-day": clearDay,
+    "clear-night": clearNight,
+  }
+  grabDOM.icon2.src = icons[weather];
+}
+
+function addGraph(uv) {
+  const div = document.createElement("div");
+  div.style.height = `${uv * 5}px`;
+  div.style.width = "10px";
+  switch (true) {
+    case uv < 3:
+      div.style.backgroundColor = "green";
+      break;
+    case uv < 6:
+      div.style.backgroundColor = "yellow";
+      break;
+    case uv < 8: 
+      div.style.backgroundColor = "orange";
+      break;
+    case uv < 11:
+      div.style.backgroundColor = "red";
+      break;
+    case uv >= 11:
+      div.style.backgroundColor = "purple";
+  }
+  div.classList.add("uv-graph");
+  grabDOM.classUV.appendChild(div);
 }

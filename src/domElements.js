@@ -20,5 +20,30 @@ const visibility = document.querySelector("#visibility");
 const windspeed = document.querySelector("#wind-speed");
 const sunrise = document.querySelector("#sunrise");
 const sunset = document.querySelector("#sunset");
+const classUV = document.querySelector(".uv");
 
-export {searchBar, searchButton, today, tomorrow, hourly, daily, city, icon, temp, icon2, precipitation, prob, uv, uvNext1, uvNext2, seeAllUV, feelsLike, humidity, visibility, windspeed, sunrise, sunset}
+export {
+  searchBar,
+  searchButton,
+  today,
+  tomorrow,
+  hourly,
+  daily,
+  city,
+  icon,
+  temp,
+  icon2,
+  precipitation,
+  prob,
+  uv,
+  uvNext1,
+  uvNext2,
+  seeAllUV,
+  feelsLike,
+  humidity,
+  visibility,
+  windspeed,
+  sunrise,
+  sunset,
+  classUV,
+};
