@@ -73,10 +73,9 @@ async function search(location) {
     json.today.sunrise,
     json.today.sunset,
   );
-
-  json.weather.days[0].hours.forEach((e) => {
-    addGraph(e.uvindex);
-  });
+  for (let i = 6; i <= 18; i++) {
+    addGraph(json.weather.days[0].hours[i].uvindex);
+  }
   changeIcon(json.today.icon);
 })();
 
@@ -128,24 +127,29 @@ function changeIcon(weather) {
 
 function addGraph(uv) {
   const div = document.createElement("div");
-  div.style.height = `${uv * 5}px`;
-  div.style.width = "10px";
+  const bar = document.createElement("div");
+  const spanIndex = document.createElement("span");
+  spanIndex.textContent = uv;
+  bar.style.height = `${uv * 25}px`;
+  bar.style.width = "30px";
   switch (true) {
     case uv < 3:
-      div.style.backgroundColor = "green";
+      bar.style.backgroundColor = "green";
       break;
     case uv < 6:
-      div.style.backgroundColor = "yellow";
+      bar.style.backgroundColor = "yellow";
       break;
-    case uv < 8: 
-      div.style.backgroundColor = "orange";
+    case uv < 8:
+      bar.style.backgroundColor = "orange";
       break;
     case uv < 11:
-      div.style.backgroundColor = "red";
+      bar.style.backgroundColor = "red";
       break;
     case uv >= 11:
-      div.style.backgroundColor = "purple";
+      bar.style.backgroundColor = "purple";
   }
   div.classList.add("uv-graph");
-  grabDOM.classUV.appendChild(div);
+  grabDOM.barGraph.appendChild(div);
+  div.appendChild(spanIndex);
+  div.appendChild(bar);
 }

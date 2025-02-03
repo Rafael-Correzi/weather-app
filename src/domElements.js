@@ -20,7 +20,7 @@ const visibility = document.querySelector("#visibility");
 const windspeed = document.querySelector("#wind-speed");
 const sunrise = document.querySelector("#sunrise");
 const sunset = document.querySelector("#sunset");
-const classUV = document.querySelector(".uv");
+const barGraph = document.querySelector(".bar-graph");
 
 export {
   searchBar,
@@ -45,5 +45,5 @@ export {
   windspeed,
   sunrise,
   sunset,
-  classUV,
+  barGraph,
 };
