@@ -1,5 +1,12 @@
-
-
 .weather-info-tomorrow {
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 720px;
+  row-gap: 20px;
+  column-gap: 40px;
+}
+
+.temp-graph {
+  grid-column: 1 / 3;
 }

@@ -10,6 +10,8 @@ import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
 import { clearDOM } from "./clearDOM.js";
 
+let result = null;
+
 const degrees = "°C";
 const time = "us";
 const speed = " KM/H";
@@ -23,22 +25,22 @@ async function find(location) {
       headers: {},
     }
   );
-  const weather = await response.json();
-  const place = weather.resolvedAddress;
-  const description = weather.description;
-  const current = weather.currentConditions.conditions;
-  const temp = weather.currentConditions.temp;
-  const feelsLike = weather.currentConditions.feelslike;
-  const humidity = weather.currentConditions.humidity;
-  const precipitation = weather.currentConditions.precip;
-  const precipitationProb = weather.currentConditions.precipprob;
-  const precipType = weather.currentConditions.preciptype;
-  const wind = weather.currentConditions.windspeed;
-  const visibility = weather.currentConditions.visibility;
-  const uv = weather.currentConditions.uvindex;
-  const sunrise = weather.currentConditions.sunrise;
-  const sunset = weather.currentConditions.sunset;
-  const icon = weather.currentConditions.icon;
+  result = await response.json();
+  const place = result.resolvedAddress;
+  const description = result.description;
+  const current = result.currentConditions.conditions;
+  const temp = result.currentConditions.temp;
+  const feelsLike = result.currentConditions.feelslike;
+  const humidity = result.currentConditions.humidity;
+  const precipitation = result.currentConditions.precip;
+  const precipitationProb = result.currentConditions.precipprob;
+  const precipType = result.currentConditions.preciptype;
+  const wind = result.currentConditions.windspeed;
+  const visibility = result.currentConditions.visibility;
+  const uv = result.currentConditions.uvindex;
+  const sunrise = result.currentConditions.sunrise;
+  const sunset = result.currentConditions.sunset;
+  const icon = result.currentConditions.icon;
   const today = {
     description,
     current,
@@ -57,7 +59,6 @@ async function find(location) {
   };
   return {
     place,
-    weather,
     today,
   };
 }
@@ -182,7 +183,7 @@ function usTime(hour) {
 async function search(searchTerm) {
   const json = await find(searchTerm);
   console.log(json.today);
-  console.log(json.weather);
+  console.log(result);
   addToDOM(
     json.place,
     json.today.temp,
@@ -197,7 +198,7 @@ async function search(searchTerm) {
     json.today.sunset
   );
   for (let i = 6; i <= 18; i++) {
-    addGraph(json.weather.days[0].hours[i].uvindex, `${i}:00`);
+    addGraph(result.days[0].hours[i].uvindex, `${i}:00`);
   }
   for (let i = 6; i <= 18; i++) {
     addTime(i);
@@ -205,7 +206,10 @@ async function search(searchTerm) {
 
   changeIcon(json.today.icon);
 }
+
+
 grabDOM.form.addEventListener("submit", (e) => {
+  grabDOM.today.classList.add("highlighted");
   e.preventDefault();
   clear();
   search(grabDOM.searchBar.value);

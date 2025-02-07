@@ -208,7 +208,7 @@ form {
   font-size: 1.7rem;
 }
 
-.time-span > button:nth-child(1) {
+.highlighted.highlighted {
   color: orange;
   border-color: orange;
 }
@@ -288,6 +288,7 @@ h2 {
 
 .other {
   grid-row: 1;
+  grid-column: 3;
 }
 
 #weather-icon {
