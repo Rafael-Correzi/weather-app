@@ -38,7 +38,6 @@ async function find(location) {
   const sunset = weather.currentConditions.sunset;
   const icon = weather.currentConditions.icon;
   const today = {
-    place,
     description,
     current,
     temp,
@@ -55,12 +54,14 @@ async function find(location) {
     icon,
   };
   return {
+    place,
     weather,
     today,
   };
 }
 
 function addToDOM(
+  addressPassed,
   tempPassed,
   precipitationPassed,
   probPassed,
@@ -75,6 +76,7 @@ function addToDOM(
   sunrisePassed,
   sunsetPassed
 ) {
+  grabDOM.city.textContent = addressPassed;
   grabDOM.temp.textContent += tempPassed;
   grabDOM.temp.textContent += degrees;
   grabDOM.precipitation.textContent += precipitationPassed;
@@ -178,6 +180,7 @@ async function search(searchTerm) {
   console.log(json.today);
   console.log(json.weather);
   addToDOM(
+    json.place,
     json.today.temp,
     json.today.precipitation,
     json.today.precipitationProb,
