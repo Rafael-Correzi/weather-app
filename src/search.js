@@ -10,8 +10,10 @@ import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
 import { clearDOM } from "./clearDOM.js";
 
-const degrees = `°C`;
-const time = `us`;
+const degrees = "°C";
+const time = "us";
+const speed = " KM/H"
+const distance = " Kilometers"
 
 async function find(location) {
   const response = await fetch(
@@ -88,7 +90,9 @@ function addToDOM(
   grabDOM.feelsLike.textContent += degrees;
   grabDOM.humidity.textContent += humidityPassed;
   grabDOM.visibility.textContent += visibilityPassed;
+  grabDOM.visibility.textContent += distance;
   grabDOM.windspeed.textContent += windspeedPassed;
+  grabDOM.windspeed.textContent += speed;
   grabDOM.sunrise.textContent += sunrisePassed;
   grabDOM.sunset.textContent += sunsetPassed;
 }
