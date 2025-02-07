@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <div class="top-bar"></div>
   <div class="container">
@@ -15,7 +17,7 @@
         <h1>Weather forecast</h1>
       </div>
       <search>
-        <form action="">
+        <form action="" id="search">
           <label for="search-bar" class="visually-hidden"> Search: </label>
           <input type="text" id="search-bar" placeholder="Search a city">
           <button type="button" class="search-button" id="search-button">
@@ -32,52 +34,50 @@
     </div>
     <section class="weather-info">
       <article class="main">
-        <h2>Temperature:</h2>
-        <span id="city">São Paulo, SP, Brasil </span>
-        <div>
+        <h2>Temperature</h2>
+        <span id="city"></span>
+        <div class="weather-now">
           <figure>
-            <img src="#" alt="" id="weather-icon">
+            <img src="#" alt="" id="weather-icon2">
           </figure>
           <span id="temp"></span>
         </div>
         <span id="weather-state"></span>
-      </article>
-      <article class="precipitation">
-        <figure>
-          <img src="#" alt="" id="weather-icon2">
-        </figure>
-        <h3 id="precipitation">Precipitation: </h2>
-        <span id="precipitation-prob">Precipitation</span>
+        <div>
+          <h2>Precipitation Currently: </h2><span id="precipitation"></span>
+        </div>
       </article>
       <article class="uv">
-        <h3 id="uv">UV index now:<h2>
-          <div class="bar-graph">
-              <span>6:00 AM</span>
-              <span>7:00 AM</span>
-              <span>8:00 AM</span>
-              <span>9:00 AM</span>
-              <span>10:00 AM</span>
-              <span>11:00 AM</span>
-              <span>12:00 PM</span>
-              <span>1:00 PM</span>
-              <span>2:00 PM</span>
-              <span>3:00 PM</span>
-              <span>4:00 PM</span>
-              <span>5:00 PM</span>
-              <span>6:00 PM</span>
-          </div>
+        <h2>UV Index</h2>
+        <span id="uv"></span>
+        <div class="bar-graph">
+          <span>6:00 AM</span>
+          <span>7:00 AM</span>
+          <span>8:00 AM</span>
+          <span>9:00 AM</span>
+          <span>10:00 AM</span>
+          <span>11:00 AM</span>
+          <span>12:00 PM</span>
+          <span>1:00 PM</span>
+          <span>2:00 PM</span>
+          <span>3:00 PM</span>
+          <span>4:00 PM</span>
+          <span>5:00 PM</span>
+          <span>6:00 PM</span>
+        </div>
       </article>
       <article class="other">
-        <h3>Other data: </h3>
-        <span id="feels-like">Feels like:</span>
-        <span id="humidity">Humidity:</span>
-        <span id="visibility">Visibility:</span>
-        <span id="wind-speed">Wind speed:</span>
-        <span id="sunrise">Sunrise: </span>
-        <span id="sunset">Sunset: </span>
+        <h2>Other data: </h2>
+        <span>Feels like: <span id="feels-like"></span></span>
+        <span>Humidity: <span id="humidity"></span></span>
+        <span>Visibility: <span id="visibility"></span></span>
+        <span>Wind speed: <span id="wind-speed"></span></span>
+        <span>Sunrise: <span id="sunrise"></span></span>
+        <span>Sunset: <span id="sunset"></span></span>
       </article>
 
     </section>
   </div>
 </body>
+
 </html>

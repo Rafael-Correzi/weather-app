@@ -9,8 +9,9 @@ import rain from "./svgs/rain.svg";
 import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
 
+const degrees = `°C`;
 
-async function search(location) {
+async function find(location) {
   const response = await fetch(
     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=TNU9NFWTT382WGD6LTP525A76&contentType=json`,
     {
@@ -57,28 +58,6 @@ async function search(location) {
   };
 }
 
-(async function saoPaulo() {
-  const json = await search("São Paulo");
-  console.log(json.today);
-  console.log(json.weather);
-  addToDOM(
-    json.today.temp,
-    json.today.precipitation,
-    json.today.precipitationProb,
-    json.today.uv,
-    json.today.feelsLike,
-    json.today.humidity,
-    json.today.visibility,
-    json.today.wind,
-    json.today.sunrise,
-    json.today.sunset,
-  );
-  for (let i = 6; i <= 18; i++) {
-    addGraph(json.weather.days[0].hours[i].uvindex);
-  }
-  changeIcon(json.today.icon);
-})();
-
 function addToDOM(
   tempPassed,
   precipitationPassed,
@@ -95,14 +74,14 @@ function addToDOM(
   sunsetPassed
 ) {
   grabDOM.temp.textContent += tempPassed;
-  grabDOM.temp.textContent += "° C"
+  grabDOM.temp.textContent += degrees;
   grabDOM.precipitation.textContent += precipitationPassed;
-  grabDOM.prob.textContent += probPassed;
   grabDOM.uv.textContent += uvPassed;
   //grabDOM.uvNext1.textContent += uvNext1Passed;
   //grabDOM.uvNext2.textContent += uvNext2Passed;
   //grabDOM.seeAllUV.textContent += seeAllUVPassed;
   grabDOM.feelsLike.textContent += feelsLikePassed;
+  grabDOM.feelsLike.textContent += degrees;
   grabDOM.humidity.textContent += humidityPassed;
   grabDOM.visibility.textContent += visibilityPassed;
   grabDOM.windspeed.textContent += windspeedPassed;
@@ -110,18 +89,38 @@ function addToDOM(
   grabDOM.sunset.textContent += sunsetPassed;
 }
 
+function clear() {
+  grabDOM.temp.textContent = "";
+  grabDOM.temp.textContent = "";
+  grabDOM.precipitation.textContent = "";
+  grabDOM.uv.textContent = "";
+  //grabDOM.uvNext1.textContent = '';
+  //grabDOM.uvNext2.textContent = '';
+  //grabDOM.seeAllUV.textContent = '';
+  grabDOM.feelsLike.textContent = "";
+  grabDOM.feelsLike.textContent = "";
+  grabDOM.humidity.textContent = "";
+  grabDOM.visibility.textContent = "";
+  grabDOM.windspeed.textContent = "";
+  grabDOM.sunrise.textContent = "";
+  grabDOM.sunset.textContent = "";
+  while (grabDOM.barGraph.firstChild) {
+    grabDOM.barGraph.removeChild(grabDOM.barGraph.lastChild);
+  }
+}
+
 function changeIcon(weather) {
   const icons = {
-    "snow": snow,
-    "rain": rain,
-    "fog": foggy,
-    "wind": windy,
-    "cloudy": cloudy,
+    snow: snow,
+    rain: rain,
+    fog: foggy,
+    wind: windy,
+    cloudy: cloudy,
     "partly-cloudy-day": partlyCloudyDay,
     "partly-cloudy-night": partlyCloudyNight,
     "clear-day": clearDay,
     "clear-night": clearNight,
-  }
+  };
   grabDOM.icon2.src = icons[weather];
 }
 
@@ -153,3 +152,30 @@ function addGraph(uv) {
   div.appendChild(spanIndex);
   div.appendChild(bar);
 }
+
+async function search(searchTerm) {
+  const json = await find(searchTerm);
+  console.log(json.today);
+  console.log(json.weather);
+  addToDOM(
+    json.today.temp,
+    json.today.precipitation,
+    json.today.precipitationProb,
+    json.today.uv,
+    json.today.feelsLike,
+    json.today.humidity,
+    json.today.visibility,
+    json.today.wind,
+    json.today.sunrise,
+    json.today.sunset
+  );
+  for (let i = 6; i <= 18; i++) {
+    addGraph(json.weather.days[0].hours[i].uvindex);
+  }
+  changeIcon(json.today.icon);
+}
+grabDOM.form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  clear();
+  search(grabDOM.searchBar.value);
+});

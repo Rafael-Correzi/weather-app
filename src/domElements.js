@@ -1,3 +1,4 @@
+const form = document.querySelector("#search");
 const searchBar = document.querySelector("#search-bar");
 const searchButton = document.querySelector("#search-button");
 const today = document.querySelector("#today");
@@ -23,6 +24,7 @@ const sunset = document.querySelector("#sunset");
 const barGraph = document.querySelector(".bar-graph");
 
 export {
+  form,
   searchBar,
   searchButton,
   today,
