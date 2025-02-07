@@ -1,7 +1,5 @@
-.weather-info-tomorrow {
-  display: none;
-}
 
-#show {
+
+.weather-info-tomorrow {
   display: grid;
 }

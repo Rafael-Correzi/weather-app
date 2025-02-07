@@ -12,8 +12,8 @@ import { clearDOM } from "./clearDOM.js";
 
 const degrees = "°C";
 const time = "us";
-const speed = " KM/H"
-const distance = " Kilometers"
+const speed = " KM/H";
+const distance = " Kilometers";
 
 async function find(location) {
   const response = await fetch(

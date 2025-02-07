@@ -65,7 +65,7 @@ html {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .logo-container {
