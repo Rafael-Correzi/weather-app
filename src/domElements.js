@@ -1,3 +1,5 @@
+const weatherInfoToday = document.querySelector(".weather-info");
+const weatherInfoTomorrow = document.querySelector(".weather-info-tomorrow");
 const form = document.querySelector("#search");
 const searchBar = document.querySelector("#search-bar");
 const searchButton = document.querySelector("#search-button");
@@ -22,8 +24,11 @@ const windspeed = document.querySelector("#wind-speed");
 const sunrise = document.querySelector("#sunrise");
 const sunset = document.querySelector("#sunset");
 const barGraph = document.querySelector(".bar-graph");
+const div = document.createElement("div");
 
 export {
+  weatherInfoToday,
+  weatherInfoTomorrow,
   form,
   searchBar,
   searchButton,
@@ -48,4 +53,5 @@ export {
   sunrise,
   sunset,
   barGraph,
+  div,
 };

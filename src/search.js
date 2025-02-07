@@ -8,8 +8,10 @@ import snow from "./svgs/rain-snow.svg";
 import rain from "./svgs/rain.svg";
 import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
+import { clearDOM } from "./clearDOM.js";
 
 const degrees = `°C`;
+const time = `us`;
 
 async function find(location) {
   const response = await fetch(
@@ -104,9 +106,7 @@ function clear() {
   grabDOM.windspeed.textContent = "";
   grabDOM.sunrise.textContent = "";
   grabDOM.sunset.textContent = "";
-  while (grabDOM.barGraph.firstChild) {
-    grabDOM.barGraph.removeChild(grabDOM.barGraph.lastChild);
-  }
+  clearDOM(grabDOM.barGraph);
 }
 
 function changeIcon(weather) {
@@ -153,6 +153,26 @@ function addGraph(uv) {
   div.appendChild(bar);
 }
 
+function addTime(hour) {
+  const span = document.createElement("span");
+  if (time === "us") {
+    span.textContent = usTime(hour);
+  } else span.textContent = `${hour}:00`;
+  grabDOM.barGraph.appendChild(span);
+}
+
+function usTime(hour) {
+  if (hour < 12) {
+    return `${hour}:00 AM`;
+  }
+  if (hour === 12) {
+    return `12:00 PM`;
+  }
+  if (hour > 12 && hour < 24) {
+    return `${hour - 12}:00 PM`;
+  }
+}
+
 async function search(searchTerm) {
   const json = await find(searchTerm);
   console.log(json.today);
@@ -170,8 +190,12 @@ async function search(searchTerm) {
     json.today.sunset
   );
   for (let i = 6; i <= 18; i++) {
-    addGraph(json.weather.days[0].hours[i].uvindex);
+    addGraph(json.weather.days[0].hours[i].uvindex, `${i}:00`);
   }
+  for (let i = 6; i <= 18; i++) {
+    addTime(i);
+  }
+
   changeIcon(json.today.icon);
 }
 grabDOM.form.addEventListener("submit", (e) => {

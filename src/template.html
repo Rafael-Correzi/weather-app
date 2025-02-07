@@ -20,7 +20,7 @@
         <form action="" id="search">
           <label for="search-bar" class="visually-hidden"> Search: </label>
           <input type="text" id="search-bar" placeholder="Search a city">
-          <button type="button" class="search-button" id="search-button">
+          <button type="submit" class="search-button" id="search-button">
             <img src="./svgs/search.svg" alt="Click and search" class="search-icon">
           </button>
         </form>
@@ -50,20 +50,9 @@
       <article class="uv">
         <h2>UV Index</h2>
         <span id="uv"></span>
+        <div class="complete-graph">
         <div class="bar-graph">
-          <span>6:00 AM</span>
-          <span>7:00 AM</span>
-          <span>8:00 AM</span>
-          <span>9:00 AM</span>
-          <span>10:00 AM</span>
-          <span>11:00 AM</span>
-          <span>12:00 PM</span>
-          <span>1:00 PM</span>
-          <span>2:00 PM</span>
-          <span>3:00 PM</span>
-          <span>4:00 PM</span>
-          <span>5:00 PM</span>
-          <span>6:00 PM</span>
+        </div>
         </div>
       </article>
       <article class="other">
@@ -75,6 +64,9 @@
         <span>Sunrise: <span id="sunrise"></span></span>
         <span>Sunset: <span id="sunset"></span></span>
       </article>
+
+    </section>
+    <section class="weather-info-tomorrow">
 
     </section>
   </div>

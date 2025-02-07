@@ -64,6 +64,10 @@ html {
   --header-height: 80px;
 }
 
+.hide {
+  display: none;
+}
+
 .logo-container {
   text-align: center;
 }
@@ -200,8 +204,13 @@ form {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px #aaa;
   font-size: 1.7rem;
+}
+
+.time-span > button:nth-child(1) {
+  color: orange;
+  border-color: orange;
 }
 
 .weather-info {
@@ -263,6 +272,10 @@ article {
   padding: 0 30px;
 }
 
+.time-uv {
+
+}
+
 h2 {
   text-align: center;
   font-size: 2.2rem;
@@ -289,6 +302,7 @@ h2 {
   text-align: center;
 }
 
+
 .bar-graph {
   display: grid;
   grid-template-columns: repeat(13, 1fr);
@@ -296,6 +310,8 @@ h2 {
   justify-content: center;
   text-align: center;
 }
+
+
 
 .bar-graph > span {
   grid-row: 2;
