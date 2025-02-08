@@ -249,7 +249,6 @@ function addCurrent() {
   addToDOMHour(1, 0);
   makeUVGraph(0, grabDOM.barGraph);
   changeIcon(result.currentConditions.icon, grabDOM.icon2);
- ;
 }
 
 async function search(searchTerm) {
@@ -287,7 +286,9 @@ grabDOM.today.addEventListener("click", () => {
   hide(grabDOM.weatherInfoHour);
   show(grabDOM.weatherInfoToday);
   clear();
-  makeUVGraph(0, grabDOM.barGraph);
+  if (result != null) {
+    makeUVGraph(0, grabDOM.barGraph);
+  }
 });
 
 grabDOM.hourly.addEventListener("click", () => {
