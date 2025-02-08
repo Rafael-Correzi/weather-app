@@ -103,24 +103,24 @@ function addToDOMTomorrow(
   feelsLikePassed,
   humidityPassed,
   visibilityPassed,
-  windspeedPassed
+  windspeedPassed,
 ) {
-  grabDOM.tmrTemp.textContent = tempPassed;
-  grabDOM.tmrTemp.textContent += degrees;
-  grabDOM.tmrPrecip.textContent = precipitationPassed;
-  grabDOM.tmrFeelsLike.textContent = feelsLikePassed;
-  grabDOM.tmrFeelsLike.textContent += degrees;
-  grabDOM.tmrHumidity.textContent = humidityPassed;
-  grabDOM.tmrVisibility.textContent = visibilityPassed;
-  grabDOM.tmrVisibility.textContent += distance;
-  grabDOM.tmrWindSpeed.textContent = windspeedPassed;
-  grabDOM.tmrWindSpeed.textContent += speed;
+  grabDOM.hourTemp.textContent = tempPassed;
+  grabDOM.hourTemp.textContent += degrees;
+  grabDOM.hourPrecip.textContent = precipitationPassed;
+  grabDOM.hourFeelsLike.textContent = feelsLikePassed;
+  grabDOM.hourFeelsLike.textContent += degrees;
+  grabDOM.hourHumidity.textContent = humidityPassed;
+  grabDOM.hourVisibility.textContent = visibilityPassed;
+  grabDOM.hourVisibility.textContent += distance;
+  grabDOM.hourWindSpeed.textContent = windspeedPassed;
+  grabDOM.hourWindSpeed.textContent += speed;
 }
 
 function clear() {
   clearDOM(grabDOM.barGraph);
   clearDOM(grabDOM.tempGraph);
-  clearDOM(grabDOM.tmrUV);
+  clearDOM(grabDOM.hourUV);
 }
 
 function changeIcon(weather, element) {
@@ -175,7 +175,7 @@ function addDotGraph(i, temp, max, diff) {
   spanTemp.textContent = temp;
   spanTemp.textContent += degrees;
   dot.style.height = `${height}px`;
-  div.id = `tmr${i}`;
+  div.id = `hour${i}`;
   div.classList.add("time-graph");
   dot.classList.add("graph-points");
   grabDOM.tempGraph.appendChild(div);
@@ -186,7 +186,7 @@ function addDotGraph(i, temp, max, diff) {
 
 function linkGraph() {
   for (let i = 0; i <= 23; i++) {
-    document.querySelector(`#tmr${i}`).addEventListener("click", () => {
+    document.querySelector(`#hour${i}`).addEventListener("click", () => {
       addToDOMTomorrow(
         result.days[1].hours[i].temp,
         result.days[1].hours[i].precip,
@@ -196,10 +196,10 @@ function linkGraph() {
         result.days[1].hours[i].windspeed
       );
       for (let j = 0; j <= 23; j++) {
-        removeHighlight(document.querySelector(`#tmr${j}`));
+        removeHighlight(document.querySelector(`#hour${j}`));
       }
-      highlightSelected(document.querySelector(`#tmr${i}`));
-      changeIcon(result.days[1].hours[i].icon, grabDOM.tmrIcon);
+      highlightSelected(document.querySelector(`#hour${i}`));
+      changeIcon(result.days[1].hours[i].icon, grabDOM.hourIcon);
     });
   }
 }
@@ -257,11 +257,11 @@ async function search(searchTerm) {
   );
   for (let i = 6; i <= 18; i++) {
     addGraph(grabDOM.barGraph, result.days[0].hours[i].uvindex, `${i}:00`);
-    addGraph(grabDOM.tmrUV, result.days[1].hours[i].uvindex, `${i}:00`);
+    addGraph(grabDOM.hourUV, result.days[1].hours[i].uvindex, `${i}:00`);
   }
   for (let i = 6; i <= 18; i++) {
     addTime(grabDOM.barGraph, i);
-    addTime(grabDOM.tmrUV, i);
+    addTime(grabDOM.hourUV, i);
   }
   for (let i = 0; i <= 23; i++) {
     temporaryTemp = result.days[1].hours[i].temp;
@@ -288,8 +288,8 @@ async function search(searchTerm) {
   );
 
   changeIcon(json.today.icon, grabDOM.icon2);
-  changeIcon(result.days[1].hours[0].icon, grabDOM.tmrIcon);
-  highlightSelected(document.querySelector("#tmr0"));
+  changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
+  highlightSelected(document.querySelector("#hour0"));
 }
 
 grabDOM.form.addEventListener("submit", (e) => {

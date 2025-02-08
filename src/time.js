@@ -1,19 +1,19 @@
-import { weatherInfoToday, weatherInfoTomorrow, tomorrow, today, hourly } from "./domElements";
-import { hide, show, clear } from "./clearDOM";
+import { weatherInfoToday, weatherInfoHour, tomorrow, today, hourly, tmrTemp } from "./domElements";
+import { hide, show, clearDOM } from "./clearDOM";
 
 tomorrow.addEventListener("click", () => {
   today.className = "";
   hourly.className = "";
   tomorrow.className = "highlighted";
   hide(weatherInfoToday);
-  show(weatherInfoTomorrow);
+  show(weatherInfoHour);
 });
 
 today.addEventListener("click", () => {
   tomorrow.className = "";
   hourly.className = "";
   today.className = "highlighted";
-  hide(weatherInfoTomorrow);
+  hide(weatherInfoHour);
   show(weatherInfoToday);
 });
 
@@ -22,5 +22,4 @@ hourly.addEventListener("click", () => {
   tomorrow.className = "";
   hourly.className = "highlighted";
   hide(weatherInfoToday);
-  hide(weatherInfoTomorrow);
-})
+});

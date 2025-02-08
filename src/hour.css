@@ -1,4 +1,4 @@
-.weather-info-tomorrow {
+.weather-info-hour {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -7,7 +7,7 @@
   column-gap: 20px;
 }
 
-.temp-tmr {
+.temp-hour {
   position: relative;
   grid-column: 1 / 4;
   grid-row: 1;
@@ -33,21 +33,21 @@
 }
 
 
-#icon-tmr {
+#icon-hour {
   height: 130px;
 }
 
-#temp-tmr {
+#temp-hour {
   font-size: 8rem;
   margin-left: 20px;
 }
 
-.info-tmr {
+.info-hour {
   display: flex;
   align-items: center;
 }
 
-.uv-tomorrow {
+.uv-hour {
   grid-column: 1 / 3;
   display: flex;
   flex-direction: column;
@@ -55,7 +55,7 @@
   padding: 0 5px;
 }
 
-#tmr-uv {
+#uv-hour-graph {
   display: grid;
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: 10fr 1fr;
@@ -63,24 +63,24 @@
   text-align: center;
 }
 
-#tmr-uv > span {
+#uv-hour-graph > span {
   grid-row: 2;
   margin-top: 10px;
 }
 
-.other-tomorrow {
+.other-hour {
   display: flex;
   flex-direction: column;
   font-size: 1.6rem; 
   padding-left: 10px;
 }
 
-.other-tomorrow > span {
+.other-hour > span {
   margin-top: 30px;
   
 }
 
-.other-tomorrow > span:nth-child(1) {
+.other-hour > span:nth-child(1) {
   font-size: 2.2rem;
 }
 

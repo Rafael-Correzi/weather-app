@@ -1,7 +1,5 @@
-
 const weatherInfoToday = document.querySelector(".weather-info");
-const weatherInfoTomorrow = document.querySelector(".weather-info-tomorrow");
-const weatherInfoHourly = document.querySelector(".weather-info-hourly");
+const weatherInfoHour = document.querySelector(".weather-info-hour");
 const form = document.querySelector("#search");
 const searchBar = document.querySelector("#search-bar");
 const searchButton = document.querySelector("#search-button");
@@ -28,19 +26,18 @@ const sunset = document.querySelector("#sunset");
 const barGraph = document.querySelector(".bar-graph");
 const tempGraph = document.querySelector(".temp-graph");
 
-const tmrIcon = document.querySelector("#icon-tmr");
-const tmrTemp = document.querySelector("#temp-tmr");
-const tmrPrecip = document.querySelector("#precip-tmr");
-const tmrFeelsLike = document.querySelector("#feels-like-tmr");
-const tmrHumidity = document.querySelector("#humidity-tmr");
-const tmrVisibility = document.querySelector("#visibility-tmr");
-const tmrWindSpeed = document.querySelector("#wind-speed-tmr");
-const tmrUV = document.querySelector("#tmr-uv");
+const hourIcon = document.querySelector("#icon-hour");
+const hourTemp = document.querySelector("#temp-hour");
+const hourPrecip = document.querySelector("#precip-hour");
+const hourFeelsLike = document.querySelector("#feels-like-hour");
+const hourHumidity = document.querySelector("#humidity-hour");
+const hourVisibility = document.querySelector("#visibility-hour");
+const hourWindSpeed = document.querySelector("#wind-speed-hour");
+const hourUV = document.querySelector("#uv-hour-graph");
 
 export {
   weatherInfoToday,
-  weatherInfoTomorrow,
-  weatherInfoHourly,
+  weatherInfoHour,
   form,
   searchBar,
   searchButton,
@@ -66,12 +63,12 @@ export {
   sunset,
   barGraph,
   tempGraph,
-  tmrIcon,
-  tmrTemp,
-  tmrPrecip,
-  tmrFeelsLike,
-  tmrHumidity,
-  tmrVisibility,
-  tmrWindSpeed,
-  tmrUV,
+  hourIcon,
+  hourTemp,
+  hourPrecip,
+  hourFeelsLike,
+  hourHumidity,
+  hourVisibility,
+  hourWindSpeed,
+  hourUV,
 };
