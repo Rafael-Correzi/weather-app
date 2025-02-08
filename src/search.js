@@ -183,7 +183,7 @@ function addGraph(where, uv) {
 }
 
 function addDotGraph(i, temp, max, diff) {
-  const height = ((diff - (max - temp)) * 180) / diff;
+  const height = ((diff - (max - temp)) * 180) / diff + 25;
   const div = document.createElement("div");
   const dot = document.createElement("div");
   const spanTemp = document.createElement("span");
@@ -196,6 +196,7 @@ function addDotGraph(i, temp, max, diff) {
   grabDOM.tempGraph.appendChild(div);
   div.appendChild(spanTemp);
   div.appendChild(dot);
+  addTime(div, i);
 }
 
 function linkGraph() {
@@ -231,19 +232,19 @@ function addTime(where, hour) {
   const span = document.createElement("span");
   if (time === "us") {
     span.textContent = usTime(hour);
-  } else span.textContent = `${hour}:00`;
+  } else span.textContent = `${hour}`;
   where.appendChild(span);
 }
 
 function usTime(hour) {
   if (hour < 12) {
-    return `${hour}:00 AM`;
+    return `${hour} AM`;
   }
   if (hour === 12) {
-    return `12:00 PM`;
+    return `12 PM`;
   }
   if (hour > 12 && hour < 24) {
-    return `${hour - 12}:00 PM`;
+    return `${hour - 12} PM`;
   }
 }
 
@@ -305,8 +306,9 @@ async function search(searchTerm) {
 }
 
 grabDOM.form.addEventListener("submit", (e) => {
-  grabDOM.today.className = "highlighted";
   e.preventDefault();
   clear();
   search(grabDOM.searchBar.value);
 });
+
+grabDOM.today.className = "highlighted";

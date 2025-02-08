@@ -16,9 +16,13 @@
 .temp-graph {
   position: absolute;
   bottom: 0;
-  align-items: flex-end;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: 1fr;
+  justify-content: center;
+  text-align: center;
   margin-left: 15px;
+  align-items: flex-end;
 }
 
 .time-graph {
