@@ -34,6 +34,7 @@ const tmrFeelsLike = document.querySelector("#feels-like-tmr");
 const tmrHumidity = document.querySelector("#humidity-tmr");
 const tmrVisibility = document.querySelector("#visibility-tmr");
 const tmrWindSpeed = document.querySelector("#wind-speed-tmr");
+const tmrUV = document.querySelector("#tmr-uv");
 
 export {
   weatherInfoToday,
@@ -70,4 +71,5 @@ export {
   tmrHumidity,
   tmrVisibility,
   tmrWindSpeed,
+  tmrUV,
 };

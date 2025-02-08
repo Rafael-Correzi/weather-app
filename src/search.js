@@ -135,6 +135,7 @@ function clear() {
   grabDOM.sunset.textContent = "";
   clearDOM(grabDOM.barGraph);
   clearDOM(grabDOM.tempGraph);
+  clearDOM(grabDOM.tmrUV);
 }
 
 function changeIcon(weather, element) {
@@ -152,7 +153,7 @@ function changeIcon(weather, element) {
   element.src = icons[weather];
 }
 
-function addGraph(uv) {
+function addGraph(where, uv) {
   const div = document.createElement("div");
   const bar = document.createElement("div");
   const spanIndex = document.createElement("span");
@@ -176,7 +177,7 @@ function addGraph(uv) {
       bar.style.backgroundColor = "purple";
   }
   div.classList.add("uv-graph");
-  grabDOM.barGraph.appendChild(div);
+  where.appendChild(div);
   div.appendChild(spanIndex);
   div.appendChild(bar);
 }
@@ -226,12 +227,12 @@ function removeHighlight(unhighlight) {
   unhighlight.classList.remove("highlighted");
 }
 
-function addTime(hour) {
+function addTime(where, hour) {
   const span = document.createElement("span");
   if (time === "us") {
     span.textContent = usTime(hour);
   } else span.textContent = `${hour}:00`;
-  grabDOM.barGraph.appendChild(span);
+  where.appendChild(span);
 }
 
 function usTime(hour) {
@@ -251,7 +252,6 @@ async function search(searchTerm) {
   let minTemp = 300;
   let temporaryTemp;
   let maxTemp = -274;
-  let weight = null;
   console.log(json.today);
   console.log(result);
   addToDOM(
@@ -268,10 +268,12 @@ async function search(searchTerm) {
     json.today.sunset
   );
   for (let i = 6; i <= 18; i++) {
-    addGraph(result.days[0].hours[i].uvindex, `${i}:00`);
+    addGraph(grabDOM.barGraph, result.days[0].hours[i].uvindex, `${i}:00`);
+    addGraph(grabDOM.tmrUV, result.days[1].hours[i].uvindex, `${i}:00`);
   }
   for (let i = 6; i <= 18; i++) {
-    addTime(i);
+    addTime(grabDOM.barGraph, i);
+    addTime(grabDOM.tmrUV, i)
   }
   for (let i = 0; i <= 23; i++) {
     temporaryTemp = result.days[1].hours[i].temp;
@@ -296,7 +298,6 @@ async function search(searchTerm) {
     result.days[1].hours[0].visibility,
     result.days[1].hours[0].windspeed,
   );
-
 
   changeIcon(json.today.icon, grabDOM.icon2);
   changeIcon(result.days[1].hours[0].icon, grabDOM.tmrIcon);
