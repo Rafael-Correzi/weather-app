@@ -237,6 +237,9 @@ function addTime(where, hour) {
 }
 
 function usTime(hour) {
+  if (hour === 0) {
+    return `12 AM`;
+  }
   if (hour < 12) {
     return `${hour} AM`;
   }

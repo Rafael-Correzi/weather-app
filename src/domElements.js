@@ -1,6 +1,7 @@
 
 const weatherInfoToday = document.querySelector(".weather-info");
 const weatherInfoTomorrow = document.querySelector(".weather-info-tomorrow");
+const weatherInfoHourly = document.querySelector(".weather-info-hourly");
 const form = document.querySelector("#search");
 const searchBar = document.querySelector("#search-bar");
 const searchButton = document.querySelector("#search-button");
@@ -39,6 +40,7 @@ const tmrUV = document.querySelector("#tmr-uv");
 export {
   weatherInfoToday,
   weatherInfoTomorrow,
+  weatherInfoHourly,
   form,
   searchBar,
   searchButton,
