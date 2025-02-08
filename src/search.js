@@ -8,7 +8,7 @@ import snow from "./svgs/rain-snow.svg";
 import rain from "./svgs/rain.svg";
 import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
-import { clearDOM } from "./clearDOM.js";
+import { hide, show, clearDOM } from "./clearDOM.js";
 
 let result = null;
 
@@ -63,61 +63,45 @@ async function find(location) {
   };
 }
 
-function addToDOM(
-  addressPassed,
-  tempPassed,
-  precipitationPassed,
-  probPassed,
-  uvPassed,
-  //uvNext1Passed,
-  //uvNext2Passed,
-  //seeAllUVPassed,
-  feelsLikePassed,
-  humidityPassed,
-  visibilityPassed,
-  windspeedPassed,
-  sunrisePassed,
-  sunsetPassed
-) {
-  grabDOM.city.textContent = addressPassed;
-  grabDOM.temp.textContent = tempPassed;
+function addToDOMCurrent() {
+  grabDOM.city.textContent = result.resolvedAddress;
+  grabDOM.temp.textContent = result.currentConditions.temp;
   grabDOM.temp.textContent += degrees;
-  grabDOM.precipitation.textContent = precipitationPassed
-    ? precipitationPassed
+  grabDOM.precipitation.textContent = result.currentConditions.precip
+    ? result.currentConditions.precip
     : "0";
-  grabDOM.uv.textContent = uvPassed;
-  grabDOM.feelsLike.textContent = feelsLikePassed;
+  grabDOM.uv.textContent = result.currentConditions.uv;
+  grabDOM.feelsLike.textContent = result.currentConditions.feelslike;
   grabDOM.feelsLike.textContent += degrees;
-  grabDOM.humidity.textContent = humidityPassed;
-  grabDOM.visibility.textContent = visibilityPassed;
+  grabDOM.humidity.textContent = result.currentConditions.humidity;
+  grabDOM.visibility.textContent = result.currentConditions.visibility;
   grabDOM.visibility.textContent += distance;
-  grabDOM.windspeed.textContent = windspeedPassed;
+  grabDOM.windspeed.textContent = result.currentConditions.windspeed;
   grabDOM.windspeed.textContent += speed;
-  grabDOM.sunrise.textContent = sunrisePassed;
-  grabDOM.sunset.textContent = sunsetPassed;
+  grabDOM.sunrise.textContent = result.currentConditions.sunrise;
+  grabDOM.sunset.textContent = result.currentConditions.sunset;
 }
 
-function addToDOMTomorrow(
-  tempPassed,
-  precipitationPassed,
-  feelsLikePassed,
-  humidityPassed,
-  visibilityPassed,
-  windspeedPassed,
-) {
-  grabDOM.hourTemp.textContent = tempPassed;
+function addToDOMHour(when, i) {
+  grabDOM.hourTemp.textContent = result.days[when].hours[i].temp;
   grabDOM.hourTemp.textContent += degrees;
-  grabDOM.hourPrecip.textContent = precipitationPassed;
-  grabDOM.hourFeelsLike.textContent = feelsLikePassed;
+  grabDOM.hourPrecip.textContent = result.days[when].hours[i].precip;
+  grabDOM.hourFeelsLike.textContent = result.days[when].hours[i].feelslike;
   grabDOM.hourFeelsLike.textContent += degrees;
-  grabDOM.hourHumidity.textContent = humidityPassed;
-  grabDOM.hourVisibility.textContent = visibilityPassed;
+  grabDOM.hourHumidity.textContent = result.days[when].hours[i].humidity;
+  grabDOM.hourVisibility.textContent = result.days[when].hours[i].visibility;
   grabDOM.hourVisibility.textContent += distance;
-  grabDOM.hourWindSpeed.textContent = windspeedPassed;
+  grabDOM.hourWindSpeed.textContent = result.days[when].hours[i].windspeed;
   grabDOM.hourWindSpeed.textContent += speed;
 }
 
 function clear() {
+  grabDOM.hourTemp.textContent = "";
+  grabDOM.hourPrecip.textContent = "";
+  grabDOM.hourFeelsLike.textContent = "";
+  grabDOM.hourHumidity.textContent = "";
+  grabDOM.hourVisibility.textContent = "";
+  grabDOM.hourWindSpeed.textContent = "";
   clearDOM(grabDOM.barGraph);
   clearDOM(grabDOM.tempGraph);
   clearDOM(grabDOM.hourUV);
@@ -136,6 +120,36 @@ function changeIcon(weather, element) {
     "clear-night": clearNight,
   };
   element.src = icons[weather];
+}
+
+function makeUVGraph(day, where) {
+  for (let i = 6; i <= 18; i++) {
+    addGraph(where, result.days[day].hours[i].uvindex, `${i}:00`);
+  }
+  for (let i = 6; i <= 18; i++) {
+    addTime(where, i);
+  }
+}
+
+function makeTempGraph(day) {
+  let minTemp = 300;
+  let temporaryTemp;
+  let maxTemp = -274;
+  for (let i = 0; i <= 23; i++) {
+    temporaryTemp = result.days[day].hours[i].temp;
+    if (minTemp > temporaryTemp) {
+      minTemp = temporaryTemp;
+    }
+    if (maxTemp < temporaryTemp) {
+      maxTemp = temporaryTemp;
+    }
+  }
+  let diff = maxTemp - minTemp;
+  for (let i = 0; i <= 23; i++) {
+    addDotGraph(i, result.days[day].hours[i].temp, maxTemp, diff, day);
+  }
+  linkGraph(day);
+  highlightSelected(document.querySelector(`#day${day}hour0`));
 }
 
 function addGraph(where, uv) {
@@ -167,7 +181,7 @@ function addGraph(where, uv) {
   div.appendChild(bar);
 }
 
-function addDotGraph(i, temp, max, diff) {
+function addDotGraph(i, temp, max, diff, day) {
   const height = ((diff - (max - temp)) * 180) / diff + 25;
   const div = document.createElement("div");
   const dot = document.createElement("div");
@@ -175,7 +189,7 @@ function addDotGraph(i, temp, max, diff) {
   spanTemp.textContent = temp;
   spanTemp.textContent += degrees;
   dot.style.height = `${height}px`;
-  div.id = `hour${i}`;
+  div.id = `day${day}hour${i}`;
   div.classList.add("time-graph");
   dot.classList.add("graph-points");
   grabDOM.tempGraph.appendChild(div);
@@ -184,23 +198,18 @@ function addDotGraph(i, temp, max, diff) {
   addTime(div, i);
 }
 
-function linkGraph() {
+function linkGraph(day) {
   for (let i = 0; i <= 23; i++) {
-    document.querySelector(`#hour${i}`).addEventListener("click", () => {
-      addToDOMTomorrow(
-        result.days[1].hours[i].temp,
-        result.days[1].hours[i].precip,
-        result.days[1].hours[i].feelslike,
-        result.days[1].hours[i].humidity,
-        result.days[1].hours[i].visibility,
-        result.days[1].hours[i].windspeed
-      );
-      for (let j = 0; j <= 23; j++) {
-        removeHighlight(document.querySelector(`#hour${j}`));
-      }
-      highlightSelected(document.querySelector(`#hour${i}`));
-      changeIcon(result.days[1].hours[i].icon, grabDOM.hourIcon);
-    });
+    document
+      .querySelector(`#day${day}hour${i}`)
+      .addEventListener("click", () => {
+        addToDOMHour(day, i);
+        for (let j = 0; j <= 23; j++) {
+          removeHighlight(document.querySelector(`#day${day}hour${j}`));
+        }
+        highlightSelected(document.querySelector(`#day${day}hour${i}`));
+        changeIcon(result.days[day].hours[i].icon, grabDOM.hourIcon);
+      });
   }
 }
 
@@ -235,67 +244,66 @@ function usTime(hour) {
   }
 }
 
+function addCurrent() {
+  addToDOMCurrent();
+  addToDOMHour(1, 0);
+  makeUVGraph(0, grabDOM.barGraph);
+  changeIcon(result.currentConditions.icon, grabDOM.icon2);
+ ;
+}
+
 async function search(searchTerm) {
-  const json = await find(searchTerm);
-  let minTemp = 300;
-  let temporaryTemp;
-  let maxTemp = -274;
-  console.log(json.today);
+  await find(searchTerm);
   console.log(result);
-  addToDOM(
-    json.place,
-    json.today.temp,
-    json.today.precipitation,
-    json.today.precipitationProb,
-    json.today.uv,
-    json.today.feelsLike,
-    json.today.humidity,
-    json.today.visibility,
-    json.today.wind,
-    json.today.sunrise,
-    json.today.sunset
-  );
-  for (let i = 6; i <= 18; i++) {
-    addGraph(grabDOM.barGraph, result.days[0].hours[i].uvindex, `${i}:00`);
-    addGraph(grabDOM.hourUV, result.days[1].hours[i].uvindex, `${i}:00`);
-  }
-  for (let i = 6; i <= 18; i++) {
-    addTime(grabDOM.barGraph, i);
-    addTime(grabDOM.hourUV, i);
-  }
-  for (let i = 0; i <= 23; i++) {
-    temporaryTemp = result.days[1].hours[i].temp;
-    if (minTemp > temporaryTemp) {
-      minTemp = temporaryTemp;
-    }
-    if (maxTemp < temporaryTemp) {
-      maxTemp = temporaryTemp;
-    }
-  }
-  let diff = maxTemp - minTemp;
-  for (let i = 0; i <= 23; i++) {
-    addDotGraph(i, result.days[1].hours[i].temp, maxTemp, diff);
-  }
-  linkGraph();
-
-  addToDOMTomorrow(
-    result.days[1].hours[0].temp,
-    result.days[1].hours[0].precip,
-    result.days[1].hours[0].feelslike,
-    result.days[1].hours[0].humidity,
-    result.days[1].hours[0].visibility,
-    result.days[1].hours[0].windspeed
-  );
-
-  changeIcon(json.today.icon, grabDOM.icon2);
-  changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
-  highlightSelected(document.querySelector("#hour0"));
+  addCurrent();
 }
 
 grabDOM.form.addEventListener("submit", (e) => {
   e.preventDefault();
   clear();
   search(grabDOM.searchBar.value);
+});
+
+grabDOM.tomorrow.addEventListener("click", () => {
+  grabDOM.today.className = "";
+  grabDOM.hourly.className = "";
+  grabDOM.tomorrow.className = "highlighted";
+  grabDOM.uvH2.textContent = "UV Tomorrow";
+  hide(grabDOM.weatherInfoToday);
+  show(grabDOM.weatherInfoHour);
+  clear();
+  if (result != null) {
+    addToDOMHour(1, 0);
+    changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
+    makeTempGraph(1);
+    makeUVGraph(1, grabDOM.hourUV);
+  }
+});
+
+grabDOM.today.addEventListener("click", () => {
+  grabDOM.tomorrow.className = "";
+  grabDOM.hourly.className = "";
+  grabDOM.today.className = "highlighted";
+  hide(grabDOM.weatherInfoHour);
+  show(grabDOM.weatherInfoToday);
+  clear();
+  makeUVGraph(0, grabDOM.barGraph);
+});
+
+grabDOM.hourly.addEventListener("click", () => {
+  grabDOM.today.className = "";
+  grabDOM.tomorrow.className = "";
+  grabDOM.hourly.className = "highlighted";
+  grabDOM.uvH2.textContent = "UV Today";
+  hide(grabDOM.weatherInfoToday);
+  show(grabDOM.weatherInfoHour);
+  clear();
+  if (result != null) {
+    addToDOMHour(0, 0);
+    changeIcon(result.days[0].hours[0].icon, grabDOM.hourIcon);
+    makeTempGraph(0);
+    makeUVGraph(0, grabDOM.hourUV);
+  }
 });
 
 grabDOM.today.className = "highlighted";

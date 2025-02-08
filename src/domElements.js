@@ -34,6 +34,7 @@ const hourHumidity = document.querySelector("#humidity-hour");
 const hourVisibility = document.querySelector("#visibility-hour");
 const hourWindSpeed = document.querySelector("#wind-speed-hour");
 const hourUV = document.querySelector("#uv-hour-graph");
+const uvH2 = document.querySelector("#uv-h2");
 
 export {
   weatherInfoToday,
@@ -71,4 +72,5 @@ export {
   hourVisibility,
   hourWindSpeed,
   hourUV,
+  uvH2,
 };
