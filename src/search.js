@@ -251,35 +251,7 @@ function addCurrent() {
   changeIcon(result.currentConditions.icon, grabDOM.icon2);
 }
 
-async function search(searchTerm) {
-  await find(searchTerm);
-  console.log(result);
-  addCurrent();
-}
-
-grabDOM.form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  clear();
-  search(grabDOM.searchBar.value);
-});
-
-grabDOM.tomorrow.addEventListener("click", () => {
-  grabDOM.today.className = "";
-  grabDOM.hourly.className = "";
-  grabDOM.tomorrow.className = "highlighted";
-  grabDOM.uvH2.textContent = "UV Tomorrow";
-  hide(grabDOM.weatherInfoToday);
-  show(grabDOM.weatherInfoHour);
-  clear();
-  if (result != null) {
-    addToDOMHour(1, 0);
-    changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
-    makeTempGraph(1);
-    makeUVGraph(1, grabDOM.hourUV);
-  }
-});
-
-grabDOM.today.addEventListener("click", () => {
+function displayCurrent() {
   grabDOM.tomorrow.className = "";
   grabDOM.hourly.className = "";
   grabDOM.today.className = "highlighted";
@@ -289,9 +261,9 @@ grabDOM.today.addEventListener("click", () => {
   if (result != null) {
     makeUVGraph(0, grabDOM.barGraph);
   }
-});
+}
 
-grabDOM.hourly.addEventListener("click", () => {
+function displayHourly() {
   grabDOM.today.className = "";
   grabDOM.tomorrow.className = "";
   grabDOM.hourly.className = "highlighted";
@@ -305,6 +277,47 @@ grabDOM.hourly.addEventListener("click", () => {
     makeTempGraph(0);
     makeUVGraph(0, grabDOM.hourUV);
   }
+}
+
+function displayTomorrow() {
+  grabDOM.today.className = "";
+  grabDOM.hourly.className = "";
+  grabDOM.tomorrow.className = "highlighted";
+  grabDOM.uvH2.textContent = "UV Tomorrow";
+  hide(grabDOM.weatherInfoToday);
+  show(grabDOM.weatherInfoHour);
+  clear();
+  if (result != null) {
+    addToDOMHour(1, 0);
+    changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
+    makeTempGraph(1);
+    makeUVGraph(1, grabDOM.hourUV);
+  }
+}
+
+async function search(searchTerm) {
+  await find(searchTerm);
+  console.log(result);
+  addCurrent();
+  displayCurrent();
+}
+
+grabDOM.form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  clear();
+  search(grabDOM.searchBar.value);
+});
+
+grabDOM.tomorrow.addEventListener("click", () => {
+  displayTomorrow();
+});
+
+grabDOM.today.addEventListener("click", () => {
+  displayCurrent();
+});
+
+grabDOM.hourly.addEventListener("click", () => {
+  displayHourly();
 });
 
 grabDOM.today.className = "highlighted";
