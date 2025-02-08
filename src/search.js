@@ -23,44 +23,9 @@ async function find(location) {
     {
       method: "GET",
       headers: {},
-    }
+    },
   );
   result = await response.json();
-  const place = result.resolvedAddress;
-  const description = result.description;
-  const current = result.currentConditions.conditions;
-  const temp = result.currentConditions.temp;
-  const feelsLike = result.currentConditions.feelslike;
-  const humidity = result.currentConditions.humidity;
-  const precipitation = result.currentConditions.precip;
-  const precipitationProb = result.currentConditions.precipprob;
-  const precipType = result.currentConditions.preciptype;
-  const wind = result.currentConditions.windspeed;
-  const visibility = result.currentConditions.visibility;
-  const uv = result.currentConditions.uvindex;
-  const sunrise = result.currentConditions.sunrise;
-  const sunset = result.currentConditions.sunset;
-  const icon = result.currentConditions.icon;
-  const today = {
-    description,
-    current,
-    temp,
-    feelsLike,
-    humidity,
-    precipitation,
-    precipitationProb,
-    precipType,
-    wind,
-    visibility,
-    uv,
-    sunrise,
-    sunset,
-    icon,
-  };
-  return {
-    place,
-    today,
-  };
 }
 
 function addToDOMCurrent() {
@@ -321,3 +286,5 @@ grabDOM.hourly.addEventListener("click", () => {
 });
 
 grabDOM.today.className = "highlighted";
+
+search("São Paulo");
