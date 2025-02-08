@@ -203,9 +203,9 @@ form {
   padding: 0 40px;
   border: none;
   background-color: transparent;
-  cursor: pointer;
   border-bottom: solid 1px #aaa;
   font-size: 1.7rem;
+  cursor: pointer;
 }
 
 .highlighted.highlighted {
