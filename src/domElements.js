@@ -27,6 +27,14 @@ const sunset = document.querySelector("#sunset");
 const barGraph = document.querySelector(".bar-graph");
 const tempGraph = document.querySelector(".temp-graph");
 
+const tmrIcon = document.querySelector("#icon-tmr");
+const tmrTemp = document.querySelector("#temp-tmr");
+const tmrPrecip = document.querySelector("#precip-tmr");
+const tmrFeelsLike = document.querySelector("#feels-like-tmr");
+const tmrHumidity = document.querySelector("#humidity-tmr");
+const tmrVisibility = document.querySelector("#visibility-tmr");
+const tmrWindSpeed = document.querySelector("#wind-speed-tmr");
+
 export {
   weatherInfoToday,
   weatherInfoTomorrow,
@@ -55,4 +63,11 @@ export {
   sunset,
   barGraph,
   tempGraph,
+  tmrIcon,
+  tmrTemp,
+  tmrPrecip,
+  tmrFeelsLike,
+  tmrHumidity,
+  tmrVisibility,
+  tmrWindSpeed,
 };

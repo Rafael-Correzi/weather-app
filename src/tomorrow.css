@@ -7,16 +7,38 @@
   column-gap: 40px;
 }
 
-.temp-graph {
-  align-items: flex-end;
-  display: flex;
+.temp-tmr {
+  position: relative;
   grid-column: 1 / 4;
   grid-row: 1;
 }
 
+.temp-graph {
+  position: absolute;
+  bottom: 0;
+  align-items: flex-end;
+  display: flex;
+}
+
 .time-graph {
+  width: 39.9px;
+  cursor: pointer;
 }
 
 .graph-points {
   border-left: solid 1px #ddd ;
+}
+
+#icon-tmr {
+  height: 130px;
+}
+
+#temp-tmr {
+  font-size: 8rem;
+  margin-left: 20px;
+}
+
+.info-tmr {
+  display: flex;
+  align-items: center;
 }
