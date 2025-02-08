@@ -114,6 +114,7 @@ function clear() {
   grabDOM.sunrise.textContent = "";
   grabDOM.sunset.textContent = "";
   clearDOM(grabDOM.barGraph);
+  clearDOM(grabDOM.tempGraph);
 }
 
 function changeIcon(weather) {
@@ -160,6 +161,21 @@ function addGraph(uv) {
   div.appendChild(bar);
 }
 
+function addDotGraph(temp, max, diff) {
+  const height = ((diff - (max - temp)) * 180) / diff;
+  const div = document.createElement("div");
+  const dot = document.createElement("div");
+  const spanTemp = document.createElement("span");
+  spanTemp.textContent = temp;
+  spanTemp.textContent += degrees;
+  dot.style.height = `${height}px`;
+  div.classList.add("time-graph");
+  dot.classList.add("graph-points");
+  grabDOM.tempGraph.appendChild(div);
+  div.appendChild(spanTemp);
+  div.appendChild(dot);
+}
+
 function addTime(hour) {
   const span = document.createElement("span");
   if (time === "us") {
@@ -182,6 +198,10 @@ function usTime(hour) {
 
 async function search(searchTerm) {
   const json = await find(searchTerm);
+  let minTemp = 300;
+  let temporaryTemp;
+  let maxTemp = -274;
+  let weight = null;
   console.log(json.today);
   console.log(result);
   addToDOM(
@@ -203,13 +223,27 @@ async function search(searchTerm) {
   for (let i = 6; i <= 18; i++) {
     addTime(i);
   }
+  for (let i = 0; i <= 23; i++) {
+    temporaryTemp = result.days[1].hours[i].temp;
+    if (minTemp > temporaryTemp) {
+      minTemp = temporaryTemp;
+    }
+    if (maxTemp < temporaryTemp) {
+      maxTemp = temporaryTemp;
+    }
+  }
+  let diff = maxTemp - minTemp;
+  for (let i = 0; i <= 23; i++) {
+    addDotGraph(result.days[1].hours[i].temp, maxTemp, diff);
+  }
 
   changeIcon(json.today.icon);
 }
 
+function tempGraph() {}
 
 grabDOM.form.addEventListener("submit", (e) => {
-  grabDOM.today.classList.add("highlighted");
+  grabDOM.today.className = "highlighted";
   e.preventDefault();
   clear();
   search(grabDOM.searchBar.value);

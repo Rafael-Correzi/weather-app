@@ -8,5 +8,15 @@
 }
 
 .temp-graph {
-  grid-column: 1 / 3;
+  align-items: flex-end;
+  display: flex;
+  grid-column: 1 / 4;
+  grid-row: 1;
+}
+
+.time-graph {
+}
+
+.graph-points {
+  border-left: solid 1px #ddd ;
 }
