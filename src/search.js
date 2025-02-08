@@ -80,22 +80,21 @@ function addToDOM(
   sunsetPassed
 ) {
   grabDOM.city.textContent = addressPassed;
-  grabDOM.temp.textContent += tempPassed;
+  grabDOM.temp.textContent = tempPassed;
   grabDOM.temp.textContent += degrees;
-  grabDOM.precipitation.textContent += precipitationPassed;
-  grabDOM.uv.textContent += uvPassed;
-  //grabDOM.uvNext1.textContent += uvNext1Passed;
-  //grabDOM.uvNext2.textContent += uvNext2Passed;
-  //grabDOM.seeAllUV.textContent += seeAllUVPassed;
-  grabDOM.feelsLike.textContent += feelsLikePassed;
+  grabDOM.precipitation.textContent = precipitationPassed
+    ? precipitationPassed
+    : "0";
+  grabDOM.uv.textContent = uvPassed;
+  grabDOM.feelsLike.textContent = feelsLikePassed;
   grabDOM.feelsLike.textContent += degrees;
-  grabDOM.humidity.textContent += humidityPassed;
-  grabDOM.visibility.textContent += visibilityPassed;
+  grabDOM.humidity.textContent = humidityPassed;
+  grabDOM.visibility.textContent = visibilityPassed;
   grabDOM.visibility.textContent += distance;
-  grabDOM.windspeed.textContent += windspeedPassed;
+  grabDOM.windspeed.textContent = windspeedPassed;
   grabDOM.windspeed.textContent += speed;
-  grabDOM.sunrise.textContent += sunrisePassed;
-  grabDOM.sunset.textContent += sunsetPassed;
+  grabDOM.sunrise.textContent = sunrisePassed;
+  grabDOM.sunset.textContent = sunsetPassed;
 }
 
 function addToDOMTomorrow(
@@ -119,20 +118,6 @@ function addToDOMTomorrow(
 }
 
 function clear() {
-  grabDOM.temp.textContent = "";
-  grabDOM.temp.textContent = "";
-  grabDOM.precipitation.textContent = "";
-  grabDOM.uv.textContent = "";
-  //grabDOM.uvNext1.textContent = '';
-  //grabDOM.uvNext2.textContent = '';
-  //grabDOM.seeAllUV.textContent = '';
-  grabDOM.feelsLike.textContent = "";
-  grabDOM.feelsLike.textContent = "";
-  grabDOM.humidity.textContent = "";
-  grabDOM.visibility.textContent = "";
-  grabDOM.windspeed.textContent = "";
-  grabDOM.sunrise.textContent = "";
-  grabDOM.sunset.textContent = "";
   clearDOM(grabDOM.barGraph);
   clearDOM(grabDOM.tempGraph);
   clearDOM(grabDOM.tmrUV);
@@ -208,7 +193,7 @@ function linkGraph() {
         result.days[1].hours[i].feelslike,
         result.days[1].hours[i].humidity,
         result.days[1].hours[i].visibility,
-        result.days[1].hours[i].windspeed,
+        result.days[1].hours[i].windspeed
       );
       for (let j = 0; j <= 23; j++) {
         removeHighlight(document.querySelector(`#tmr${j}`));
@@ -217,10 +202,9 @@ function linkGraph() {
       changeIcon(result.days[1].hours[i].icon, grabDOM.tmrIcon);
     });
   }
-
 }
 
-function highlightSelected(highlighted){
+function highlightSelected(highlighted) {
   highlighted.classList.add("highlighted");
 }
 
@@ -277,7 +261,7 @@ async function search(searchTerm) {
   }
   for (let i = 6; i <= 18; i++) {
     addTime(grabDOM.barGraph, i);
-    addTime(grabDOM.tmrUV, i)
+    addTime(grabDOM.tmrUV, i);
   }
   for (let i = 0; i <= 23; i++) {
     temporaryTemp = result.days[1].hours[i].temp;
@@ -300,7 +284,7 @@ async function search(searchTerm) {
     result.days[1].hours[0].feelslike,
     result.days[1].hours[0].humidity,
     result.days[1].hours[0].visibility,
-    result.days[1].hours[0].windspeed,
+    result.days[1].hours[0].windspeed
   );
 
   changeIcon(json.today.icon, grabDOM.icon2);
