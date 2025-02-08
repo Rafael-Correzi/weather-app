@@ -208,10 +208,22 @@ function linkGraph() {
         result.days[1].hours[i].visibility,
         result.days[1].hours[i].windspeed,
       );
+      for (let j = 0; j <= 23; j++) {
+        removeHighlight(document.querySelector(`#tmr${j}`));
+      }
+      highlightSelected(document.querySelector(`#tmr${i}`));
       changeIcon(result.days[1].hours[i].icon, grabDOM.tmrIcon);
     });
   }
 
+}
+
+function highlightSelected(highlighted){
+  highlighted.classList.add("highlighted");
+}
+
+function removeHighlight(unhighlight) {
+  unhighlight.classList.remove("highlighted");
 }
 
 function addTime(hour) {
@@ -285,8 +297,10 @@ async function search(searchTerm) {
     result.days[1].hours[0].windspeed,
   );
 
+
   changeIcon(json.today.icon, grabDOM.icon2);
   changeIcon(result.days[1].hours[0].icon, grabDOM.tmrIcon);
+  highlightSelected(document.querySelector("#tmr0"));
 }
 
 grabDOM.form.addEventListener("submit", (e) => {

@@ -18,16 +18,16 @@
   bottom: 0;
   align-items: flex-end;
   display: flex;
+  margin-left: 15px;
 }
 
 .time-graph {
-  width: 39.9px;
+  width: 39px;
   cursor: pointer;
+  border-left: solid 1px #ddd;
+  padding-left: 3px;
 }
 
-.graph-points {
-  border-left: solid 1px #ddd ;
-}
 
 #icon-tmr {
   height: 130px;
