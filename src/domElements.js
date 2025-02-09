@@ -28,6 +28,7 @@ const sunset = document.querySelector("#sunset");
 const barGraph = document.querySelector(".bar-graph");
 const tempGraph = document.querySelector(".temp-graph");
 
+const divTemp = document.querySelector(".temp-hour");
 const hourIcon = document.querySelector("#icon-hour");
 const hourTemp = document.querySelector("#temp-hour");
 const hourPrecip = document.querySelector("#precip-hour");
@@ -88,4 +89,5 @@ export {
   uvH2,
   arrowLeft,
   arrowRight,
+  divTemp,
 };

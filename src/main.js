@@ -359,6 +359,7 @@ const day = (function (currentDay = 1) {
   }
 
   function changeDay() {
+    grabDOM.divTemp.scrollTo(0, 0);
     clear();
     addToDOMHour(currentDay, 0);
     changeIcon(result.days[currentDay].hours[0].icon, grabDOM.hourIcon);
