@@ -243,7 +243,7 @@ function displayHourly() {
   grabDOM.arrowRight.classList.add("hide");
   clear();
   if (result != null) {
-    addDate(result.days[0].datetime);
+    addDate(0);
     addToDOMHour(0, 0);
     changeIcon(result.days[0].hours[0].icon, grabDOM.hourIcon);
     makeTempGraph(0);
@@ -262,6 +262,7 @@ function displayTomorrow() {
   grabDOM.arrowLeft.classList.add("hide");
   grabDOM.arrowRight.classList.add("hide");
   if (result != null) {
+    addDate(1);
     addToDOMHour(1, 0);
     changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
     makeTempGraph(1);
@@ -280,6 +281,7 @@ function displayDaily() {
   grabDOM.arrowLeft.classList.remove("hide");
   grabDOM.arrowRight.classList.remove("hide");
   if (result != null) {
+    addDate(1);
     addToDOMHour(1, 0);
     changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
     makeTempGraph(1);
@@ -287,8 +289,8 @@ function displayDaily() {
   }
 }
 
-function addDate(inputDate) {
-  let date = inputDate.split("-");
+function addDate(when) {
+  let date = result.days[when].datetime.split("-");
   let day = date[2];
   let month = date[1];
   let year = date[0];
@@ -304,7 +306,7 @@ function addDate(inputDate) {
 }
 
 function addHour() {
-  
+  let time = result.currentConditions.dateTime.split(":");
 }
 
 const day = (function () {
