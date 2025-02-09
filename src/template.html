@@ -34,6 +34,7 @@
     </div>
     <div class="city-div">
       <span id="city"></span>
+      <span id="date-time"></span>
     </div>
     <section class="weather-info">
       <article class="main">
@@ -70,6 +71,7 @@
     </section>
     <section class="weather-info-hour hide">
       <article class="temp-hour">
+        <button type="button" id="arrow-left" class="hide"><img src="./svgs/arrowleft.svg" alt="Change to previous day" class="arrow"></button>
         <div class="info-hour">
           <figure>
             <img src="#" alt="" id="icon-hour">
@@ -77,6 +79,7 @@
           <span id="temp-hour"></span>
         </div>
         <div class="temp-graph"></div>
+        <button type="button" id="arrow-right" class="hide"><img src="./svgs/arrowright.svg" alt="Change to next day" class="arrow"></button>
       </article>
       <article class="uv-hour">
         <h2 id="uv-h2">UV tomorrow</h2>

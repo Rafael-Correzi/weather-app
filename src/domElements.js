@@ -8,6 +8,7 @@ const tomorrow = document.querySelector("#tomorrow");
 const hourly = document.querySelector("#hourly");
 const daily = document.querySelector("#daily");
 const city = document.querySelector("#city");
+const dateTime = document.querySelector("#date-time");
 const icon = document.querySelector("#weather-icon");
 const temp = document.querySelector("#temp");
 const icon2 = document.querySelector("#weather-icon2");
@@ -36,6 +37,9 @@ const hourWindSpeed = document.querySelector("#wind-speed-hour");
 const hourUV = document.querySelector("#uv-hour-graph");
 const uvH2 = document.querySelector("#uv-h2");
 
+const arrowLeft = document.querySelector("#arrow-left");
+const arrowRight = document.querySelector("#arrow-right");
+
 export {
   weatherInfoToday,
   weatherInfoHour,
@@ -47,6 +51,7 @@ export {
   hourly,
   daily,
   city,
+  dateTime,
   icon,
   temp,
   icon2,
@@ -73,4 +78,6 @@ export {
   hourWindSpeed,
   hourUV,
   uvH2,
+  arrowLeft,
+  arrowRight,
 };

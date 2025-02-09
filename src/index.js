@@ -1,3 +1,3 @@
 import "./search.js";
 import "./styles.css";
-import "./hour.css";
+import "./hourDay.css";

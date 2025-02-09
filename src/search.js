@@ -10,12 +10,13 @@ import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
 import { hide, show, clearDOM } from "./clearDOM.js";
 
-let result = null;
-
 const degrees = "°C";
 const time = "us";
 const speed = " KM/H";
 const distance = " Kilometers";
+const dateSpec = "mdy";
+
+let result = null;
 
 async function find(location) {
   const response = await fetch(
@@ -23,13 +24,14 @@ async function find(location) {
     {
       method: "GET",
       headers: {},
-    },
+    }
   );
   result = await response.json();
 }
 
 function addToDOMCurrent() {
   grabDOM.city.textContent = result.resolvedAddress;
+ 
   grabDOM.temp.textContent = result.currentConditions.temp;
   grabDOM.temp.textContent += degrees;
   grabDOM.precipitation.textContent = result.currentConditions.precip
@@ -222,6 +224,8 @@ function displayCurrent() {
   grabDOM.today.className = "highlighted";
   hide(grabDOM.weatherInfoHour);
   show(grabDOM.weatherInfoToday);
+  grabDOM.arrowLeft.classList.add("hide");
+  grabDOM.arrowRight.classList.add("hide");
   clear();
   if (result != null) {
     makeUVGraph(0, grabDOM.barGraph);
@@ -235,8 +239,11 @@ function displayHourly() {
   grabDOM.uvH2.textContent = "UV Today";
   hide(grabDOM.weatherInfoToday);
   show(grabDOM.weatherInfoHour);
+  grabDOM.arrowLeft.classList.add("hide");
+  grabDOM.arrowRight.classList.add("hide");
   clear();
   if (result != null) {
+    addDate(result.days[0].datetime);
     addToDOMHour(0, 0);
     changeIcon(result.days[0].hours[0].icon, grabDOM.hourIcon);
     makeTempGraph(0);
@@ -252,6 +259,8 @@ function displayTomorrow() {
   hide(grabDOM.weatherInfoToday);
   show(grabDOM.weatherInfoHour);
   clear();
+  grabDOM.arrowLeft.classList.add("hide");
+  grabDOM.arrowRight.classList.add("hide");
   if (result != null) {
     addToDOMHour(1, 0);
     changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
@@ -259,6 +268,72 @@ function displayTomorrow() {
     makeUVGraph(1, grabDOM.hourUV);
   }
 }
+
+function displayDaily() {
+  grabDOM.today.className = "";
+  grabDOM.hourly.className = "";
+  grabDOM.tomorrow.className = "";
+  grabDOM.daily.className = "highlighted";
+  hide(grabDOM.weatherInfoToday);
+  show(grabDOM.weatherInfoHour);
+  clear();
+  grabDOM.arrowLeft.classList.remove("hide");
+  grabDOM.arrowRight.classList.remove("hide");
+  if (result != null) {
+    addToDOMHour(1, 0);
+    changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
+    makeTempGraph(1);
+    makeUVGraph(1, grabDOM.hourUV);
+  }
+}
+
+function addDate(inputDate) {
+  let date = inputDate.split("-");
+  let day = date[2];
+  let month = date[1];
+  let year = date[0];
+  if (dateSpec === "mdy") {
+    grabDOM.dateTime.textContent = `${month}/${day}/${year}`;
+  }
+  if (dateSpec === "dmy") {
+    grabDOM.dateTime.textContent = `${day}/${month}/${year}`;
+  }
+  if (dateSpec === "ymd") {
+    grabDOM.dateTime.textContent = `${year}/${month}/${day}`;
+  }
+}
+
+function addHour() {
+  
+}
+
+const day = (function () {
+  let currentDay = 1;
+  function previousDay() {
+    if (currentDay < 15 && currentDay > 0) {
+      clear();
+      currentDay--;
+      changeDay();
+    }
+  }
+
+  function nextDay() {
+    if (currentDay < 15 && currentDay > 0) {
+      clear();
+      currentDay++;
+      changeDay();
+    }
+  }
+
+  function changeDay() {
+    addToDOMHour(currentDay, 0);
+    changeIcon(result.days[currentDay].hours[0].icon, grabDOM.hourIcon);
+    makeTempGraph(currentDay);
+    makeUVGraph(currentDay, grabDOM.hourUV);
+  }
+
+  return { previousDay, nextDay };
+})();
 
 async function search(searchTerm) {
   await find(searchTerm);
@@ -283,6 +358,18 @@ grabDOM.today.addEventListener("click", () => {
 
 grabDOM.hourly.addEventListener("click", () => {
   displayHourly();
+});
+
+grabDOM.daily.addEventListener("click", () => {
+  displayDaily();
+});
+
+grabDOM.arrowLeft.addEventListener("click", () => {
+  day.previousDay();
+});
+
+grabDOM.arrowRight.addEventListener("click", () => {
+  day.nextDay();
 });
 
 grabDOM.today.className = "highlighted";
