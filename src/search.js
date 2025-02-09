@@ -299,13 +299,19 @@ function addDate(when) {
   let month = date[1];
   let year = date[0];
   if (dateSpec === "mdy") {
-    grabDOM.dateTime.textContent = `${month}/${day}/${year}`;
+    let displayedDate = `${month}/${day}/${year}`;
+    grabDOM.dateTime.textContent = displayedDate;
+    grabDOM.uvH2.textContent = `UV ${displayedDate}`;
   }
   if (dateSpec === "dmy") {
-    grabDOM.dateTime.textContent = `${day}/${month}/${year}`;
+    let displayedDate = `${day}/${month}/${year}`;
+    grabDOM.dateTime.textContent = displayedDate;
+    grabDOM.uvH2.textContent = `UV ${displayedDate}`;
   }
   if (dateSpec === "ymd") {
-    grabDOM.dateTime.textContent = `${year}/${month}/${day}`;
+    let displayedDate = `${year}/${month}/${day}`;
+    grabDOM.dateTime.textContent = displayedDate;
+    grabDOM.uvH2.textContent = `UV ${displayedDate}`;
   }
 }
 

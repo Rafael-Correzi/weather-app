@@ -58,6 +58,7 @@
 }
 
 #uv-hour-graph {
+  height: 300px;
   display: grid;
   grid-template-columns: repeat(13, 1fr);
   grid-template-rows: 10fr 1fr;
