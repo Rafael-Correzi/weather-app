@@ -140,7 +140,7 @@ function addGraph(where, uv) {
   const spanIndex = document.createElement("span");
   spanIndex.textContent = uv;
   bar.style.height = `${uv * 25}px`;
-  bar.style.width = "30px";
+  bar.classList.add("bar");
   switch (true) {
     case uv < 3:
       bar.style.backgroundColor = "green";

@@ -1,29 +1,20 @@
-
-@media (max-width:965px) {
+@media (max-width: 965px) {
   .container {
-    width: 800px;
-  }
-}
-@media (max-width:810px) {
-  .container {
-    width: 700px;
-  }
-
-  #search-bar {
-    width: 350px;
+    width: 97%;
   }
 
   .icone-logo {
     height: 30px;
     width: 45px;
   }
-  
+
   .logo {
-    font-family: 'antoniobold';
     font-size: 3rem;
-    color: white;
   }
-  
+
+  #search-bar {
+    width: 350px;
+  }
 
   .weather-now {
     margin-top: 75px;
@@ -37,20 +28,26 @@
   #weather-icon2 {
     height: 96px;
   }
-} 
-@media (max-width:710px)  {
-  .container {
-    width: 600px;
-  }
-
-  .other  {
-    font-size: 1.5rem;
-  }
-
 }
-@media (max-width:610px) {
+
+@media (max-width: 610px) {
+  
+
+  body {
+    overflow-x: hidden;
+  }
+
   .container {
-    width: 500px;
+    height: 1260px;
+  }
+
+  .top-bar {
+    box-shadow: none
+  };
+
+  article {
+    margin: 0;
+    padding: 10px 0;
   }
 
   #search-bar {
@@ -60,22 +57,103 @@
   .weather-info {
     display: flex;
     flex-direction: column;
+    width: 95%;
+    margin: 0 auto;
   }
 
   .other {
     text-align: center;
   }
 
-  @media (max-width: 510px ) {
-    .container {
-      width: 400px;
-    }
+  .bar-graph > span {
+    font-size: 1rem;
   }
 
-  @media (max-width: 410px ) {
-    .container {
-      width: 300px;
-    }
+  .bar {
+    width: 22px;
   }
 
-} 
+  .time-span {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #ddd;
+  }
+  
+  .time-span > button {
+    padding: 0 20px;
+  }
+
+  .icone-logo {
+    height: 20px;
+    width: 30px;
+  }
+
+  .logo-container {
+    margin-left: 0;
+  }
+  
+  .logo {
+    font-size: 2rem;
+  }
+
+}
+
+  @media (max-width: 480px) {
+
+
+    .bar {
+      width: 18px;
+    }
+
+    .time-span > button {
+      font-size: clamp(1rem, 4vw, 1.7rem);
+    }
+
+    .uv {
+      padding: 20px;
+    }
+  
+    #temp {
+      font-size: 6rem;
+    }
+  
+    form {
+      width: 80%;
+    }
+  
+    #search-bar {
+      
+      width: 80vw;
+    }
+  
+    #weather-icon2 {
+      height: 72px;
+    }
+  
+    .bar-graph > span {
+      width: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+  }
+
+@media (max-width: 390px) {
+  .logo-container {
+    display: none;
+  }
+
+  form {
+    left: 0;
+    width: 90vw;
+  }
+
+  #search-bar { 
+    width: 70%;
+  }
+
+  .bar-graph > span {
+    font-size: 1.2rem;
+  }
+}

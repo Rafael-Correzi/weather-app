@@ -83,8 +83,6 @@ html {
   color: white;
 }
 
-
-
 h1 {
   font-size: 1.4rem;
   color: #779ecb;
@@ -143,6 +141,12 @@ body {
 
 .logo {
 }
+
+search {
+  width: 320px;
+}
+
+
 
 #search-bar {
   width: 430px;
@@ -327,13 +331,19 @@ h2 {
   grid-template-rows: 10fr 1fr;
   justify-content: center;
   text-align: center;
+  height: 330px;
 }
 
 
 
 .bar-graph > span {
+  font-size: 1.2rem;
   grid-row: 2;
   margin: 10px 0;
+}
+
+.bar {
+  width: 30px;
 }
 
 
