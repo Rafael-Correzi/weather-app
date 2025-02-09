@@ -1,6 +1,7 @@
 @media (max-width: 965px) {
   .container {
-    width: 97%;
+    position: relative;
+    width: 90%;
   }
 
   .icone-logo {
@@ -28,6 +29,33 @@
   #weather-icon2 {
     height: 96px;
   }
+
+  .temp-hour {
+    overflow: auto;
+  }
+
+  .info-hour {
+    position: sticky;
+    left: 10px;
+  }
+  
+  #uv-hour-graph > .uv-graph > .bar {
+    width: 22px;
+  }
+
+.arrow {
+  height: 30px;
+}
+
+#arrow-left {
+  left: -30px;
+}
+
+#arrow-right {
+  right: -30px;
+}
+
+
 }
 
 @media (max-width: 610px) {
@@ -54,18 +82,20 @@
     width: 260px;
   }
 
-  .weather-info {
+  .weather-info, .weather-info-hour {
     display: flex;
     flex-direction: column;
     width: 95%;
+    height: 1070px;
     margin: 0 auto;
   }
 
-  .other {
+  .other, .other-hour {
     text-align: center;
+    height: 350px;
   }
 
-  .bar-graph > span {
+  .bar-graph > span, .uv-hour-graph > span {
     font-size: 1rem;
   }
 
@@ -78,6 +108,7 @@
     position: sticky;
     top: 0;
     background-color: #ddd;
+    z-index: 2;
   }
   
   .time-span > button {
@@ -97,20 +128,24 @@
     font-size: 2rem;
   }
 
+  .temp-hour {
+    height: 350px;
+  }
+
 }
 
   @media (max-width: 480px) {
 
 
     .bar {
-      width: 18px;
+      width: 18px !important;
     }
 
     .time-span > button {
       font-size: clamp(1rem, 4vw, 1.7rem);
     }
 
-    .uv {
+    .uv, .uv-hour {
       padding: 20px;
     }
   
@@ -131,10 +166,18 @@
       height: 72px;
     }
   
-    .bar-graph > span {
+    .bar-graph > span, #uv-hour-graph > span {
       width: 20px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    #icon-hour {
+      height: 100px;
+    }
+
+    #temp-hour {
+      font-size: 7rem;
     }
     
   }
@@ -142,6 +185,10 @@
 @media (max-width: 390px) {
   .logo-container {
     display: none;
+  }
+
+  .weather-now, .uv, .other, .temp-hour, .uv-hour, .other-hour {
+    overflow-x: auto;
   }
 
   form {
@@ -153,7 +200,16 @@
     width: 70%;
   }
 
-  .bar-graph > span {
+  .bar-graph > span, #uv-hour-graph > span {
     font-size: 1.2rem;
   }
+
+  #icon-hour {
+    height: 20vw;
+  }
+
+  #temp-hour {
+    font-size: 15vw;
+  }
+  
 }

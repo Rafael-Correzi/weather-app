@@ -164,7 +164,7 @@ function addGraph(where, uv) {
 }
 
 function addDotGraph(i, temp, max, diff, day) {
-  const height = ((diff - (max - temp)) * 180) / diff + 25;
+  const height = ((diff - (max - temp)) * 150) / diff + 25;
   const div = document.createElement("div");
   const dot = document.createElement("div");
   const spanTemp = document.createElement("span");

@@ -7,11 +7,17 @@
   column-gap: 20px;
 }
 
-.temp-hour {
+.wrapper {
   position: relative;
   grid-column: 1 / 4;
   grid-row: 1;
 }
+
+.temp-hour {
+  position: relative;
+  height: 100%;
+}
+
 
 .temp-graph {
   position: absolute;
@@ -95,6 +101,14 @@
 
 .arrow {
   height: 70px;
+  z-index: 1;
+  background-color: transparent;
+}
+
+#arrow-left, #arrow-right {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 #arrow-left {

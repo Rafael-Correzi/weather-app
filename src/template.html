@@ -37,19 +37,19 @@
       <span id="date-time"></span>
     </div>
     <section class="weather-info">
-      <article class="main">
-        <h2>Temperature</h2>
-        <div class="weather-now">
-          <figure>
-            <img src="#" alt="" id="weather-icon2">
-          </figure>
-          <span id="temp"></span>
-        </div>
-        <span id="weather-state"></span>
-        <div>
-          <h2>Precipitation Currently: </h2><span id="precipitation"></span>
-        </div>
-      </article>
+        <article class="main">
+          <h2>Temperature</h2>
+          <div class="weather-now">
+            <figure>
+              <img src="#" alt="" id="weather-icon2">
+            </figure>
+            <span id="temp"></span>
+          </div>
+          <span id="weather-state"></span>
+          <div>
+            <h2>Precipitation Currently: </h2><span id="precipitation"></span>
+          </div>
+        </article>
       <article class="uv">
         <h2>UV Index</h2>
         <span id="uv"></span>
@@ -71,17 +71,19 @@
 
     </section>
     <section class="weather-info-hour hide">
-      <article class="temp-hour">
+      <div class="wrapper">
         <button type="button" id="arrow-left" class="hide"><img src="./svgs/arrowleft2.svg" alt="Change to previous day" class="arrow"></button>
-        <div class="info-hour">
-          <figure>
-            <img src="#" alt="" id="icon-hour">
-          </figure>
-          <span id="temp-hour"></span>
-        </div>
-        <div class="temp-graph"></div>
+        <article class="temp-hour">
+          <div class="info-hour">
+            <figure>
+              <img src="#" alt="" id="icon-hour">
+            </figure>
+            <span id="temp-hour"></span>
+          </div>
+          <div class="temp-graph"></div>
+        </article>
         <button type="button" id="arrow-right" class="hide"><img src="./svgs/arrowright2.svg" alt="Change to next day" class="arrow"></button>
-      </article>
+      </div>
       <article class="uv-hour">
         <h2 id="uv-h2">UV tomorrow</h2>
         <div id="uv-hour-graph">
