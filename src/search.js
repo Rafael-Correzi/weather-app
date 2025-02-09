@@ -228,6 +228,7 @@ function displayCurrent() {
   grabDOM.arrowRight.classList.add("hide");
   clear();
   if (result != null) {
+    addHour();
     makeUVGraph(0, grabDOM.barGraph);
   }
 }
@@ -306,13 +307,23 @@ function addDate(when) {
 }
 
 function addHour() {
-  let time = result.currentConditions.dateTime.split(":");
+  if (time === "us") {
+    let dateTime = result.currentConditions.datetime.split(":");
+    let hour = +dateTime[0];
+    let minutes = dateTime[1];
+    let seconds = dateTime[2];
+    let us = usTime(hour).split(" ");
+    grabDOM.dateTime.textContent = `Last updated: ${us[0]}:${minutes}:${seconds} ${us[1]}`;
+  }
+  else {
+    grabDOM.dateTime.textContent = result.currentConditions.datetime;
+  }
 }
 
 const day = (function () {
   let currentDay = 1;
   function previousDay() {
-    if (currentDay < 15 && currentDay > 0) {
+    if (currentDay <= 14 && currentDay > 0) {
       clear();
       currentDay--;
       changeDay();
@@ -320,7 +331,7 @@ const day = (function () {
   }
 
   function nextDay() {
-    if (currentDay < 15 && currentDay > 0) {
+    if (currentDay < 14 && currentDay >= 0) {
       clear();
       currentDay++;
       changeDay();
@@ -332,6 +343,7 @@ const day = (function () {
     changeIcon(result.days[currentDay].hours[0].icon, grabDOM.hourIcon);
     makeTempGraph(currentDay);
     makeUVGraph(currentDay, grabDOM.hourUV);
+    addDate(currentDay);
   }
 
   return { previousDay, nextDay };
