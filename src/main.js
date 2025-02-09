@@ -31,6 +31,14 @@ async function find(location) {
   result = await response.json();
 }
 
+async function search(searchTerm) {
+  await find(searchTerm);
+  console.log(result);
+  addCurrent();
+  displayCurrent();
+  newSearch = true;
+}
+
 function addToDOMCurrent() {
   grabDOM.city.textContent = result.resolvedAddress;
 
@@ -361,14 +369,6 @@ const day = (function (currentDay = 1) {
 
   return { previousDay, nextDay, changeDay };
 })();
-
-async function search(searchTerm) {
-  await find(searchTerm);
-  console.log(result);
-  addCurrent();
-  displayCurrent();
-  newSearch = true;
-}
 
 grabDOM.form.addEventListener("submit", (e) => {
   e.preventDefault();
