@@ -17,6 +17,7 @@ const distance = " Kilometers";
 const dateSpec = "mdy";
 
 let result = null;
+let newSearch = false;
 
 async function find(location) {
   const response = await fetch(
@@ -31,7 +32,7 @@ async function find(location) {
 
 function addToDOMCurrent() {
   grabDOM.city.textContent = result.resolvedAddress;
- 
+
   grabDOM.temp.textContent = result.currentConditions.temp;
   grabDOM.temp.textContent += degrees;
   grabDOM.precipitation.textContent = result.currentConditions.precip
@@ -218,10 +219,16 @@ function addCurrent() {
   changeIcon(result.currentConditions.icon, grabDOM.icon2);
 }
 
-function displayCurrent() {
-  grabDOM.tomorrow.className = "";
+function highlightSection(shown) {
+  grabDOM.today.className = "";
   grabDOM.hourly.className = "";
-  grabDOM.today.className = "highlighted";
+  grabDOM.daily.className = "";
+  grabDOM.tomorrow.className = "";
+  shown.className = "highlighted";
+}
+
+function displayCurrent() {
+  highlightSection(grabDOM.today);
   hide(grabDOM.weatherInfoHour);
   show(grabDOM.weatherInfoToday);
   grabDOM.arrowLeft.classList.add("hide");
@@ -234,10 +241,7 @@ function displayCurrent() {
 }
 
 function displayHourly() {
-  grabDOM.today.className = "";
-  grabDOM.tomorrow.className = "";
-  grabDOM.hourly.className = "highlighted";
-  grabDOM.uvH2.textContent = "UV Today";
+  highlightSection(grabDOM.hourly);
   hide(grabDOM.weatherInfoToday);
   show(grabDOM.weatherInfoHour);
   grabDOM.arrowLeft.classList.add("hide");
@@ -253,9 +257,7 @@ function displayHourly() {
 }
 
 function displayTomorrow() {
-  grabDOM.today.className = "";
-  grabDOM.hourly.className = "";
-  grabDOM.tomorrow.className = "highlighted";
+  highlightSection(grabDOM.tomorrow);
   grabDOM.uvH2.textContent = "UV Tomorrow";
   hide(grabDOM.weatherInfoToday);
   show(grabDOM.weatherInfoHour);
@@ -272,21 +274,22 @@ function displayTomorrow() {
 }
 
 function displayDaily() {
-  grabDOM.today.className = "";
-  grabDOM.hourly.className = "";
-  grabDOM.tomorrow.className = "";
-  grabDOM.daily.className = "highlighted";
+  highlightSection(grabDOM.daily);
   hide(grabDOM.weatherInfoToday);
   show(grabDOM.weatherInfoHour);
   clear();
   grabDOM.arrowLeft.classList.remove("hide");
   grabDOM.arrowRight.classList.remove("hide");
   if (result != null) {
-    addDate(1);
-    addToDOMHour(1, 0);
-    changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
-    makeTempGraph(1);
-    makeUVGraph(1, grabDOM.hourUV);
+    if (!newSearch) {
+      day.changeDay();
+    } else {
+      addDate(1);
+      addToDOMHour(1, 0);
+      changeIcon(result.days[1].hours[0].icon, grabDOM.hourIcon);
+      makeTempGraph(1);
+      makeUVGraph(1, grabDOM.hourUV);
+    }
   }
 }
 
@@ -314,17 +317,14 @@ function addHour() {
     let seconds = dateTime[2];
     let us = usTime(hour).split(" ");
     grabDOM.dateTime.textContent = `Last updated: ${us[0]}:${minutes}:${seconds} ${us[1]}`;
-  }
-  else {
+  } else {
     grabDOM.dateTime.textContent = result.currentConditions.datetime;
   }
 }
 
-const day = (function () {
-  let currentDay = 1;
+const day = (function (currentDay = 1) {
   function previousDay() {
     if (currentDay <= 14 && currentDay > 0) {
-      clear();
       currentDay--;
       changeDay();
     }
@@ -332,13 +332,13 @@ const day = (function () {
 
   function nextDay() {
     if (currentDay < 14 && currentDay >= 0) {
-      clear();
       currentDay++;
       changeDay();
     }
   }
 
   function changeDay() {
+    clear();
     addToDOMHour(currentDay, 0);
     changeIcon(result.days[currentDay].hours[0].icon, grabDOM.hourIcon);
     makeTempGraph(currentDay);
@@ -346,7 +346,7 @@ const day = (function () {
     addDate(currentDay);
   }
 
-  return { previousDay, nextDay };
+  return { previousDay, nextDay, changeDay };
 })();
 
 async function search(searchTerm) {
@@ -354,6 +354,7 @@ async function search(searchTerm) {
   console.log(result);
   addCurrent();
   displayCurrent();
+  newSearch = true;
 }
 
 grabDOM.form.addEventListener("submit", (e) => {
@@ -376,6 +377,7 @@ grabDOM.hourly.addEventListener("click", () => {
 
 grabDOM.daily.addEventListener("click", () => {
   displayDaily();
+  newSearch = false;
 });
 
 grabDOM.arrowLeft.addEventListener("click", () => {
