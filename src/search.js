@@ -10,11 +10,12 @@ import clearDay from "./svgs/sun.svg";
 import windy from "./svgs/windy.svg";
 import { hide, show, clearDOM } from "./clearDOM.js";
 
-const degrees = "°C";
-const time = "us";
-const speed = " KM/H";
-const distance = " Kilometers";
-const dateSpec = "mdy";
+const DEGREE = "°";
+let degreeType = "°C";
+let time = "us";
+let speed = " KM/H";
+let distance = " Kilometers";
+let dateSpec = "mdy";
 
 let result = null;
 let newSearch = false;
@@ -34,33 +35,37 @@ function addToDOMCurrent() {
   grabDOM.city.textContent = result.resolvedAddress;
 
   grabDOM.temp.textContent = result.currentConditions.temp;
-  grabDOM.temp.textContent += degrees;
+  grabDOM.temp.textContent += degreeType;
   grabDOM.precipitation.textContent = result.currentConditions.precip
     ? result.currentConditions.precip
     : "0";
   grabDOM.uv.textContent = result.currentConditions.uv;
   grabDOM.feelsLike.textContent = result.currentConditions.feelslike;
-  grabDOM.feelsLike.textContent += degrees;
+  grabDOM.feelsLike.textContent += degreeType;
   grabDOM.humidity.textContent = result.currentConditions.humidity;
   grabDOM.visibility.textContent = result.currentConditions.visibility;
   grabDOM.visibility.textContent += distance;
   grabDOM.windspeed.textContent = result.currentConditions.windspeed;
   grabDOM.windspeed.textContent += speed;
-  grabDOM.sunrise.textContent = result.currentConditions.sunrise;
-  grabDOM.sunset.textContent = result.currentConditions.sunset;
+  grabDOM.windDirection.textContent = result.currentConditions.winddir + DEGREE;
+  grabDOM.sunrise.textContent = addHour(result.currentConditions.sunrise);
+  grabDOM.sunset.textContent = addHour(result.currentConditions.sunset);
 }
 
 function addToDOMHour(when, i) {
   grabDOM.hourTemp.textContent = result.days[when].hours[i].temp;
-  grabDOM.hourTemp.textContent += degrees;
+  grabDOM.hourTemp.textContent += degreeType;
   grabDOM.hourPrecip.textContent = result.days[when].hours[i].precip;
   grabDOM.hourFeelsLike.textContent = result.days[when].hours[i].feelslike;
-  grabDOM.hourFeelsLike.textContent += degrees;
+  grabDOM.hourFeelsLike.textContent += degreeType;
   grabDOM.hourHumidity.textContent = result.days[when].hours[i].humidity;
   grabDOM.hourVisibility.textContent = result.days[when].hours[i].visibility;
   grabDOM.hourVisibility.textContent += distance;
   grabDOM.hourWindSpeed.textContent = result.days[when].hours[i].windspeed;
   grabDOM.hourWindSpeed.textContent += speed;
+  grabDOM.hourWindDirection.textContent = result.days[when].hours[i].winddir + DEGREE;
+  grabDOM.daySunrise.textContent = addHour(result.days[when].sunrise);
+  grabDOM.daySunset.textContent = addHour(result.days[when].sunset);
 }
 
 function clear() {
@@ -70,6 +75,7 @@ function clear() {
   grabDOM.hourHumidity.textContent = "";
   grabDOM.hourVisibility.textContent = "";
   grabDOM.hourWindSpeed.textContent = "";
+  grabDOM.hourWindDirection.textContent = "";
   clearDOM(grabDOM.barGraph);
   clearDOM(grabDOM.tempGraph);
   clearDOM(grabDOM.hourUV);
@@ -155,7 +161,7 @@ function addDotGraph(i, temp, max, diff, day) {
   const dot = document.createElement("div");
   const spanTemp = document.createElement("span");
   spanTemp.textContent = temp;
-  spanTemp.textContent += degrees;
+  spanTemp.textContent += degreeType;
   dot.style.height = `${height}px`;
   div.id = `day${day}hour${i}`;
   div.classList.add("time-graph");
@@ -235,7 +241,7 @@ function displayCurrent() {
   grabDOM.arrowRight.classList.add("hide");
   clear();
   if (result != null) {
-    addHour();
+    grabDOM.dateTime.textContent = "Last updated: " + addHour(result.currentConditions.datetime);
     makeUVGraph(0, grabDOM.barGraph);
   }
 }
@@ -315,18 +321,19 @@ function addDate(when) {
   }
 }
 
-function addHour() {
+function addHour(input) {
   if (time === "us") {
-    let dateTime = result.currentConditions.datetime.split(":");
+    let dateTime = input.split(":");
     let hour = +dateTime[0];
     let minutes = dateTime[1];
     let seconds = dateTime[2];
     let us = usTime(hour).split(" ");
-    grabDOM.dateTime.textContent = `Last updated: ${us[0]}:${minutes}:${seconds} ${us[1]}`;
+    return `${us[0]}:${minutes}:${seconds} ${us[1]}`;
   } else {
-    grabDOM.dateTime.textContent = result.currentConditions.datetime;
+    return result.currentConditions.datetime;
   }
 }
+
 
 const day = (function (currentDay = 1) {
   function previousDay() {

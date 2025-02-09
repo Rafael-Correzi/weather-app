@@ -210,7 +210,7 @@ form {
 
 .highlighted.highlighted {
   color: orange;
-  border-color: orange;
+  border-color: #ffa500;
 }
 
 .city-div {
@@ -292,7 +292,21 @@ h2 {
 .other {
   grid-row: 1;
   grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem; 
+  padding-left: 10px;
 }
+
+.other > span {
+  margin-top: 25px;
+  
+}
+
+.other > span:nth-child(1) {
+  font-size: 2.2rem;
+}
+
 
 #weather-icon {
   height: 200px;
@@ -326,19 +340,4 @@ h2 {
   margin: 10px 0;
 }
 
-.other {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.6rem; 
-  padding-left: 10px;
-}
-
-.other > span {
-  margin-top: 30px;
-  
-}
-
-.other > span:nth-child(1) {
-  font-size: 2.2rem;
-}
 

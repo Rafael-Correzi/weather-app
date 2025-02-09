@@ -22,6 +22,7 @@ const feelsLike = document.querySelector("#feels-like");
 const humidity = document.querySelector("#humidity");
 const visibility = document.querySelector("#visibility");
 const windspeed = document.querySelector("#wind-speed");
+const windDirection = document.querySelector("#wind-direction");
 const sunrise = document.querySelector("#sunrise");
 const sunset = document.querySelector("#sunset");
 const barGraph = document.querySelector(".bar-graph");
@@ -34,8 +35,11 @@ const hourFeelsLike = document.querySelector("#feels-like-hour");
 const hourHumidity = document.querySelector("#humidity-hour");
 const hourVisibility = document.querySelector("#visibility-hour");
 const hourWindSpeed = document.querySelector("#wind-speed-hour");
+const hourWindDirection = document.querySelector("#wind-direction-hour");
 const hourUV = document.querySelector("#uv-hour-graph");
 const uvH2 = document.querySelector("#uv-h2");
+const daySunrise = document.querySelector("#sunrise-day");
+const daySunset = document.querySelector("#sunset-day");
 
 const arrowLeft = document.querySelector("#arrow-left");
 const arrowRight = document.querySelector("#arrow-right");
@@ -65,6 +69,7 @@ export {
   humidity,
   visibility,
   windspeed,
+  windDirection,
   sunrise,
   sunset,
   barGraph,
@@ -76,7 +81,10 @@ export {
   hourHumidity,
   hourVisibility,
   hourWindSpeed,
+  hourWindDirection,
   hourUV,
+  daySunrise,
+  daySunset,
   uvH2,
   arrowLeft,
   arrowRight,
