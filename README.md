@@ -1,4 +1,6 @@
-Weather app for The Odin Project  
+Weather app for The Odin Project :
+
+https://rafael-correzi.github.io/weather-app/
 
 The API key is public on purpose  
 
@@ -11,3 +13,5 @@ https://www.svgrepo.com/svg/535302/cloud
 
 Font used:   
 https://www.fontsquirrel.com/fonts/antonio
+
+
