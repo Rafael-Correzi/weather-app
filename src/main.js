@@ -71,7 +71,8 @@ function addToDOMHour(when, i) {
   grabDOM.hourVisibility.textContent += distance;
   grabDOM.hourWindSpeed.textContent = result.days[when].hours[i].windspeed;
   grabDOM.hourWindSpeed.textContent += speed;
-  grabDOM.hourWindDirection.textContent = result.days[when].hours[i].winddir + DEGREE;
+  grabDOM.hourWindDirection.textContent =
+    result.days[when].hours[i].winddir + DEGREE;
   grabDOM.daySunrise.textContent = addHour(result.days[when].sunrise);
   grabDOM.daySunset.textContent = addHour(result.days[when].sunset);
 }
@@ -249,7 +250,8 @@ function displayCurrent() {
   grabDOM.arrowRight.classList.add("hide");
   clear();
   if (result != null) {
-    grabDOM.dateTime.textContent = "Last updated: " + addHour(result.currentConditions.datetime);
+    grabDOM.dateTime.textContent =
+      "Last updated: " + addHour(result.currentConditions.datetime);
     makeUVGraph(0, grabDOM.barGraph);
   }
 }
@@ -341,7 +343,6 @@ function addHour(input) {
     return result.currentConditions.datetime;
   }
 }
-
 
 const day = (function (currentDay = 1) {
   function previousDay() {
