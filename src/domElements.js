@@ -45,6 +45,8 @@ const daySunset = document.querySelector("#sunset-day");
 const arrowLeft = document.querySelector("#arrow-left");
 const arrowRight = document.querySelector("#arrow-right");
 
+const error = document.querySelector(".error");
+
 export {
   weatherInfoToday,
   weatherInfoHour,
@@ -90,4 +92,5 @@ export {
   arrowLeft,
   arrowRight,
   divTemp,
+  error,
 };

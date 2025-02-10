@@ -32,11 +32,26 @@ async function find(location) {
 }
 
 async function search(searchTerm) {
-  await find(searchTerm);
-  console.log(result);
-  addCurrent();
-  displayCurrent();
-  newSearch = true;
+  try {
+    await find(searchTerm);
+    console.log(result);
+    addCurrent();
+    displayCurrent();
+    newSearch = true;
+    handleSuccess();
+  } catch {
+    handleError("Failed to fetch weather data");
+  }
+}
+
+function handleError(message) {
+  console.error(message);
+  grabDOM.error.textContent = message;
+  grabDOM.error.classList.remove("hide");
+}
+
+function handleSuccess() {
+  grabDOM.error.classList.add("hide");
 }
 
 function addToDOMCurrent() {

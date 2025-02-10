@@ -346,3 +346,9 @@ h2 {
 .attribution {
   color: black;
 }
+
+.error {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #a22;
+}
