@@ -103,6 +103,7 @@ function clear() {
   clearDOM(grabDOM.barGraph);
   clearDOM(grabDOM.tempGraph);
   clearDOM(grabDOM.hourUV);
+  grabDOM.divTemp.scrollTo(0, 0);
 }
 
 function changeIcon(weather, element) {
