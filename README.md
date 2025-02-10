@@ -1,5 +1,7 @@
 Weather app for The Odin Project  
-  
+
+The API key is public on purpose  
+
 Powered by Visual Crossing Weather  
 https://www.visualcrossing.com/
 
