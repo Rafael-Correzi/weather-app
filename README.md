@@ -1,6 +1,7 @@
 Weather app for The Odin Project  
   
 Powered by Visual Crossing Weather  
+https://www.visualcrossing.com/
 
 SVGs used:  
 https://www.svgrepo.com/collection/calcite-sharp-line-icons/  
